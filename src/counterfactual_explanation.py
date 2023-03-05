@@ -217,7 +217,7 @@ def compute_cfe(
     verbose=1,
 ):
     """
-    This function computes Counterfactual Explanations (CFE) using gradient descent method.
+    This function computes Counterfactual Explanations (CFE) using the gradient descent method.
 
     Args:
     model: The machine learning model (e.g., DecisionTreeClassifier, RandomForestClassifier, AdaBoostClassifier).
@@ -243,13 +243,13 @@ def compute_cfe(
     n_examples = len(feat_input)
     distance_weight: np.ndarray = np.full(n_examples, distance_weight_val)
     to_optimize = [perturbed]
-    indicator = np.ones(n_examples)
+    mask_vector = np.ones(n_examples)
     best_perturb = np.zeros(perturbed.shape)
     best_distance = np.full(n_examples, np.inf)
     perturb_iteration_found = np.full(n_examples, 1000 * num_iter, dtype=int)
     predictions = tf.constant(model.predict(feat_input), dtype=tf.int64)
-    example_range = tf.constant(np.arange(n_examples, dtype=int))
-    example_class_index = tf.stack((example_range, predictions), axis=1)
+    example_index = tf.constant(np.arange(n_examples, dtype=int))
+    example_pred_class_index = tf.stack((example_index, predictions), axis=1)
 
     with tf.GradientTape(persistent=True) as tape:
         for i in range(num_iter):
@@ -258,20 +258,17 @@ def compute_cfe(
 
             hinge_loss = filter_hinge_loss(
                 len(model.classes_),
-                indicator,
+                mask_vector,
                 perturbed,
                 sigma_val,
                 temperature_val,
                 model,
             )
-
-            approx_prob = tf.gather_nd(hinge_loss, example_class_index)
-
+            approx_prob = tf.gather_nd(hinge_loss, example_pred_class_index)
             distance = calculate_distance(
                 distance_function, perturbed, feat_input, x_train
             )
-
-            hinge_approx_prob = tf.cast(indicator * approx_prob, tf.float32)
+            hinge_approx_prob = tf.cast(mask_vector * approx_prob, tf.float32)
             loss = tf.reduce_mean(
                 hinge_approx_prob + distance_weight * tf.cast(distance, tf.float32)
             )
@@ -281,27 +278,26 @@ def compute_cfe(
             optimizer.apply_gradients(
                 zip(grad, to_optimize),
             )
-            perturbed.assign(tf.math.minimum(1, tf.math.maximum(0, perturbed)))
+            perturbed.assign(tf.clip_by_value(perturbed, 0, 1))
 
-            true_distance = calculate_distance(
+            distance = calculate_distance(
                 distance_function, perturbed, feat_input, x_train
             )
 
             cur_predict = model.predict(perturbed.numpy())
-            indicator = np.equal(predictions, cur_predict).astype(np.float32)
-            idx_flipped = np.argwhere(indicator == 0).flatten()
-
-            mask_flipped = np.not_equal(predictions, cur_predict)
+            mask_vector = np.equal(predictions, cur_predict).astype(np.float32)
+            idx_flipped = np.flatnonzero(mask_vector == 0)
+            mask_flipped = (predictions != cur_predict)
 
             perturb_iteration_found[idx_flipped] = np.minimum(
                 i, perturb_iteration_found[idx_flipped]
             )
 
-            distance_numpy = true_distance.numpy()
-            mask_smaller_dist = np.less(distance_numpy, best_distance)
+            distance_np = distance.numpy()
+            mask_smaller_dist = (distance_np < best_distance)
 
             temp_dist = best_distance.copy()
-            temp_dist[mask_flipped] = distance_numpy[mask_flipped]
+            temp_dist[mask_flipped] = distance_np[mask_flipped]
             best_distance[mask_smaller_dist] = temp_dist[mask_smaller_dist]
 
             temp_perturb = best_perturb.copy()
