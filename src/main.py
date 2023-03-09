@@ -37,16 +37,16 @@ def main(
         2. Generate Counterfactual Explanations (iterate num_iter times)
         3. Evaluate the generated counterfactual explanations and produce the txt file in results folder
     """
-    output_root = "results/{}/{}/{}/perturbs_{}_sigma{}_temp{}_dweight{}_lr{}".format(
-        distance_function,
-        data_name,
-        model_type,
-        opt,
-        sigma,
-        temperature,
-        distance_weight,
-        lr,
-    )
+    # output_root = "results/{}/{}/{}/perturbs_{}_sigma{}_temp{}_dweight{}_lr{}".format(
+    #     distance_function,
+    #     data_name,
+    #     model_type,
+    #     opt,
+    #     sigma,
+    #     temperature,
+    #     distance_weight,
+    #     lr,
+    # )
 
     start_time = time.time()
 
@@ -67,7 +67,7 @@ def main(
 
     unchanged_ever, cfe_distance, best_perturb = compute_cfe(model, feat_input, distance_function, optimizer, sigma,
                                                              temperature, distance_weight, num_iter=num_iter,
-                                                             x_train=x_train, verbose=1)
+                                                             direction="all", x_train=x_train, verbose=1)
 
     end_time = time.time()
     print("Finished!! ~{} min".format(np.round((end_time - start_time) / 60)))

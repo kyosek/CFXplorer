@@ -213,6 +213,7 @@ def compute_cfe(
     temperature_val: float,
     distance_weight_val: float,
     num_iter=100,
+    direction='all',
     x_train=None,
     verbose=1,
 ):
@@ -229,12 +230,20 @@ def compute_cfe(
     distance_weight_val: float, weight value for distance loss
     lr: float, learning rate for gradient descent optimization
     num_iter: int, number of iterations for gradient descent optimization (default=100)
+    direction: str, direction of perturbation (e.g. all, positive and negative)
     x_train: numpy array, the training data used to fit the original model
     verbose: int, verbosity of the function (default=1)
 
     Returns:
     tuple, number of examples that remain unchanged, the cfe distances for the changed examples and the best perturb
     """
+    if direction == "positive":
+        feat_input = feat_input[model.predict(feat_input) == 0]
+    elif direction == "negative":
+        feat_input = feat_input[model.predict(feat_input) == 1]
+    elif direction != "all":
+        raise ValueError(f"direction {direction} is not available")
+
     perturbed = tf.Variable(
         initial_value=feat_input,
         trainable=True,
