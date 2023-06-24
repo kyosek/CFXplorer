@@ -5,7 +5,7 @@ from sklearn.tree import DecisionTreeClassifier
 from utils import calculate_distance
 
 
-def _parse_class_tree(tree, feat_input: np.ndarray, sigma: float) -> list:
+def parse_class_tree(tree, feat_input: np.ndarray, sigma: float) -> list:
     """
     Compute impurity of each leaf node in a decision tree and approximate it using sigmoid function.
 
@@ -87,7 +87,7 @@ def get_prob_classification_tree(tree, feat_input, sigma: float) -> tf.Tensor:
     The final result is a tensor of stacked probabilities for each sample's classification.
     """
 
-    leaf_nodes = _parse_class_tree(tree, feat_input, sigma)
+    leaf_nodes = parse_class_tree(tree, feat_input, sigma)
 
     if tree.tree_.node_count > 1:
         prob_list = [sum(leaf_nodes[c_i]) for c_i in range(len(tree.classes_))]

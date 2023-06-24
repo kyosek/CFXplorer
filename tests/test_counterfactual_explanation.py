@@ -5,7 +5,7 @@ import pickle
 import pytest
 
 from src.counterfactual_explanation import (
-    _parse_class_tree,
+    parse_class_tree,
     get_prob_classification_tree,
     get_prob_classification_forest,
     filter_hinge_loss,
@@ -82,7 +82,7 @@ forest_data = [
 @pytest.mark.parametrize("model, feat_input, sigma", tree_data)
 def test__parse_class_tree(model, feat_input, sigma):
     if model == "dt":
-        leaf_nodes = _parse_class_tree(dt_model, feat_input, sigma)
+        leaf_nodes = parse_class_tree(dt_model, feat_input, sigma)
 
     assert len(leaf_nodes) == 2
     assert len(leaf_nodes[0][0]) == len(feat_input)
