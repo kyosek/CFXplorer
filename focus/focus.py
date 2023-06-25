@@ -7,10 +7,13 @@ from __future__ import print_function
 
 import tensorflow as tf
 import numpy as np
+import os
 from sklearn.ensemble import AdaBoostClassifier, RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
 
 from .utils import calculate_distance
+
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 
 class Focus:
@@ -18,14 +21,7 @@ class Focus:
     FOCUS :cite: computes Counterfactual Explanations (CFE) using the
     gradient descent method for predictions of the tree-based models.
 
-    Parameters
-    ----------
-    model: model object
-        The machine learning model (e.g., DecisionTreeClassifier, RandomForestClassifier, AdaBoostClassifier).
-
-    X: numpy array
-        The input feature to generate CFE
-
+    Args:
     distance_function: str, optional (default="euclidean")
         Distance function - one of "euclidean", "cosine", "l1" and "mahal"
 
@@ -44,7 +40,7 @@ class Focus:
     lr: float, optional (default=0.001)
         Learning rate for gradient descent optimization
 
-    num_iter: int, optional (default=1_000)
+    num_iter: int, optional (default=100)
         Number of iterations for gradient descent optimization (default=1_000)
 
     direction: str, optional (default="both")
@@ -60,18 +56,19 @@ class Focus:
 
 
     """
+
     def __init__(
-            self,
-            distance_function="euclidean",
-            optimizer=tf.keras.optimizers.Adam(),
-            sigma=10.0,
-            temperature=1.0,
-            distance_weight=0.01,
-            lr=0.001,
-            num_iter=1_000,
-            direction="both",
-            x_train=None,
-            verbose=1,
+        self,
+        distance_function="euclidean",
+        optimizer=tf.keras.optimizers.Adam(),
+        sigma=10.0,
+        temperature=1.0,
+        distance_weight=0.01,
+        lr=0.001,
+        num_iter=100,
+        direction="both",
+        x_train=None,
+        verbose=1,
     ):
         self.distance_function = distance_function
         self.optimizer = optimizer
@@ -84,22 +81,21 @@ class Focus:
         self.x_train = x_train
         self.verbose = verbose
 
-    def generate(self, model, X):
+    def generate(self, model, X: np.ndarray):
         """
         Generate counterfactual explanations for the predictions from a tree-based models.
 
         Args:
+        model: model object
+            The machine learning model (e.g., DecisionTreeClassifier, RandomForestClassifier, AdaBoostClassifier).
 
+        X: numpy array
+            The input feature to generate CFE
 
         Returns:
         tuple, number of examples that remain unchanged, the cfe distances for the changed examples and the best perturb
         """
-        if self.direction == "positive":
-            X = X[model.predict(X) == 0]
-        elif self.direction == "negative":
-            X = X[model.predict(X) == 1]
-        elif self.direction != "both":
-            raise ValueError(f"direction {self.direction} is not available")
+        X = Focus.prepare_X_by_perturb_direction(model, X, self.direction)
 
         perturbed = tf.Variable(
             initial_value=X,
@@ -117,70 +113,123 @@ class Focus:
         example_index = tf.constant(np.arange(n_examples, dtype=int))
         example_pred_class_index = tf.stack((example_index, predictions), axis=1)
 
+        for i in range(self.num_iter):
+            if self.verbose != 0:
+                print(f"iteration {i}")
+
+            grad = Focus.compute_gradient(
+                model,
+                X,
+                predictions,
+                to_optimize,
+                example_pred_class_index,
+                mask_vector,
+                perturbed,
+                distance_weight,
+                self.distance_function,
+                self.sigma,
+                self.temperature,
+                self.optimizer,
+                self.x_train,
+            )
+
+            self.optimizer.apply_gradients(
+                zip(grad, to_optimize),
+            )
+            perturbed.assign(tf.clip_by_value(perturbed, 0, 1))
+
+            distance = calculate_distance(
+                self.distance_function, perturbed, X, self.x_train
+            )
+
+            cur_predicts = model.predict(perturbed.numpy())
+            mask_vector = np.equal(predictions, cur_predicts).astype(np.float32)
+            idx_flipped = np.flatnonzero(mask_vector == 0)
+            mask_flipped = predictions != cur_predicts
+
+            perturb_iteration_found[idx_flipped] = np.minimum(
+                i, perturb_iteration_found[idx_flipped]
+            )
+
+            distance_np = distance.numpy()
+            mask_smaller_dist = distance_np < best_distance
+
+            temp_dist = best_distance.copy()
+            temp_dist[mask_flipped] = distance_np[mask_flipped]
+            best_distance[mask_smaller_dist] = temp_dist[mask_smaller_dist]
+
+            temp_perturb = best_perturb.copy()
+            temp_perturb[mask_flipped] = perturbed[mask_flipped]
+            best_perturb[mask_smaller_dist] = temp_perturb[mask_smaller_dist]
+
+            unchanged_ever = len(best_distance[best_distance == np.inf])
+            cfe_distance = np.mean(best_distance[best_distance != np.inf])
+
+        return unchanged_ever, cfe_distance, best_perturb
+
+    @staticmethod
+    def prepare_X_by_perturb_direction(model, X: np.ndarray, direction: str):
+        if direction == "positive":
+            return X[model.predict(X) == 0]
+        elif direction == "negative":
+            return X[model.predict(X) == 1]
+        elif direction == "both":
+            return X
+        else:
+            raise ValueError(f"direction {direction} is not available")
+
+    @staticmethod
+    def compute_gradient(
+        model,
+        X,
+        predictions,
+        to_optimize,
+        example_pred_class_index,
+        mask_vector,
+        perturbed,
+        distance_weight,
+        distance_function,
+        sigma,
+        temperature,
+        optimizer,
+        x_train,
+    ):
+        """
+        Computes the gradient of the loss function with respect to the variables to optimize.
+
+        Returns:
+        tf.Tensor: The computed gradient of the loss function with respect to the variables to optimize.
+
+        This method computes the gradient of the loss function based on the provided inputs.
+        It uses a TensorFlow GradientTape to record the operations for automatic differentiation.
+        The loss function is defined as a combination of hinge loss, approximate probability, and a distance term.
+        The gradient is then calculated with respect to the variables specified in the `to_optimize` list.
+        """
+
         with tf.GradientTape(persistent=True) as tape:
-            for i in range(self.num_iter):
-                if self.verbose != 0:
-                    print(f"iteration {i}")
+            hinge_loss = Focus.filter_hinge_loss(
+                len(model.classes_),
+                mask_vector,
+                perturbed,
+                sigma,
+                temperature,
+                model,
+            )
+            approx_prob = tf.gather_nd(hinge_loss, example_pred_class_index)
+            distance = calculate_distance(distance_function, perturbed, X, x_train)
+            hinge_approx_prob = tf.cast(mask_vector * approx_prob, tf.float32)
+            loss = tf.reduce_mean(
+                hinge_approx_prob + distance_weight * tf.cast(distance, tf.float32)
+            )
 
-                hinge_loss = self.filter_hinge_loss(
-                    len(model.classes_),
-                    mask_vector,
-                    perturbed,
-                    self.sigma,
-                    self.temperature,
-                    model,
-                )
-                approx_prob = tf.gather_nd(hinge_loss, example_pred_class_index)
-                distance = calculate_distance(
-                    self.distance_function, perturbed, X, self.x_train
-                )
-                hinge_approx_prob = tf.cast(mask_vector * approx_prob, tf.float32)
-                loss = tf.reduce_mean(
-                    hinge_approx_prob + distance_weight * tf.cast(distance, tf.float32)
-                )
-
-                grad = tape.gradient(loss, to_optimize)
-
-                self.optimizer.apply_gradients(
-                    zip(grad, to_optimize),
-                )
-                perturbed.assign(tf.clip_by_value(perturbed, 0, 1))
-
-                distance = calculate_distance(
-                    self.distance_function, perturbed, X, self.x_train
-                )
-
-                cur_predict = model.predict(perturbed.numpy())
-                mask_vector = np.equal(predictions, cur_predict).astype(np.float32)
-                idx_flipped = np.flatnonzero(mask_vector == 0)
-                mask_flipped = (predictions != cur_predict)
-
-                perturb_iteration_found[idx_flipped] = np.minimum(
-                    i, perturb_iteration_found[idx_flipped]
-                )
-
-                distance_np = distance.numpy()
-                mask_smaller_dist = (distance_np < best_distance)
-
-                temp_dist = best_distance.copy()
-                temp_dist[mask_flipped] = distance_np[mask_flipped]
-                best_distance[mask_smaller_dist] = temp_dist[mask_smaller_dist]
-
-                temp_perturb = best_perturb.copy()
-                temp_perturb[mask_flipped] = perturbed[mask_flipped]
-                best_perturb[mask_smaller_dist] = temp_perturb[mask_smaller_dist]
-
-                unchanged_ever = len(best_distance[best_distance == np.inf])
-                cfe_distance = np.mean(best_distance[best_distance != np.inf])
-
-            return unchanged_ever, cfe_distance, best_perturb
+        return tape.gradient(loss, to_optimize)
 
     @staticmethod
     def parse_class_tree(tree, X: np.ndarray, sigma: float) -> list:
         """
         Compute impurity of each leaf node in a decision tree and approximate it using sigmoid function.
 
-        Parameters:
+        Args:
         tree (DecisionTreeClassifier): Trained decision tree model.
         X (np.ndarray): Input feature values.
         sigma (float): Scaling factor to apply to sigmoid activation.
@@ -221,9 +270,7 @@ class Focus:
                     cur_node = 1.0
 
                 sigma = np.full(len(X), sigma)
-                activation = tf.math.sigmoid(
-                    (X[:, feature[i]] - threshold[i]) * sigma
-                )
+                activation = tf.math.sigmoid((X[:, feature[i]] - threshold[i]) * sigma)
 
                 left_node, right_node = 1.0 - activation, activation
                 nodes[children_left[i]], nodes[children_right[i]] = (
@@ -295,7 +342,7 @@ class Focus:
 
     @staticmethod
     def get_prob_classification_forest(
-            model, X: tf.Tensor, sigma: float, temperature: float
+        model, X: tf.Tensor, sigma: float, temperature: float
     ) -> tf.Tensor:
         """
         Calculate the softmax probabilities for classification for a random forest or AdaBoost model.
@@ -315,9 +362,9 @@ class Focus:
             The softmax probabilities of the classification.
         """
         dt_prob_list = [
-                           Focus.get_prob_classification_tree(estimator, X, sigma)
-                           for estimator in model.estimators_
-                       ][:100]
+            Focus.get_prob_classification_tree(estimator, X, sigma)
+            for estimator in model.estimators_
+        ][:100]
 
         if isinstance(model, AdaBoostClassifier):
             weights = model.estimator_weights_
@@ -338,7 +385,12 @@ class Focus:
 
     @staticmethod
     def filter_hinge_loss(
-            n_class, mask_vector, X, sigma, temperature, model,
+        n_class,
+        mask_vector,
+        X,
+        sigma,
+        temperature,
+        model,
     ) -> tf.Tensor:
         """
         Calculates the filtered probabilities of each data point for the given model.
@@ -363,7 +415,9 @@ class Focus:
                 model, filtered_input, sigma=sigma, temperature=temperature
             )
         elif isinstance(model, DecisionTreeClassifier):
-            filtered_loss = Focus.get_prob_classification_tree(model, filtered_input, sigma)
+            filtered_loss = Focus.get_prob_classification_tree(
+                model, filtered_input, sigma
+            )
 
         indices = np.where(mask_vector)[0]
         hinge_loss = tf.tensor_scatter_nd_add(

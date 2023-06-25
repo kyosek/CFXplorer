@@ -213,7 +213,7 @@ def compute_cfe(
     temperature_val: float,
     distance_weight_val: float,
     num_iter=100,
-    direction='all',
+    direction="all",
     x_train=None,
     verbose=1,
 ):
@@ -296,14 +296,14 @@ def compute_cfe(
             cur_predict = model.predict(perturbed.numpy())
             mask_vector = np.equal(predictions, cur_predict).astype(np.float32)
             idx_flipped = np.flatnonzero(mask_vector == 0)
-            mask_flipped = (predictions != cur_predict)
+            mask_flipped = predictions != cur_predict
 
             perturb_iteration_found[idx_flipped] = np.minimum(
                 i, perturb_iteration_found[idx_flipped]
             )
 
             distance_np = distance.numpy()
-            mask_smaller_dist = (distance_np < best_distance)
+            mask_smaller_dist = distance_np < best_distance
 
             temp_dist = best_distance.copy()
             temp_dist[mask_flipped] = distance_np[mask_flipped]

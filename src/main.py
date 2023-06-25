@@ -15,7 +15,9 @@ parser.add_argument("sigma", type=float, default=1.0)
 parser.add_argument("temperature", type=float, default=1.0)
 parser.add_argument("distance_weight", type=float, default=0.01)
 parser.add_argument("lr", type=float, default=0.001)
-parser.add_argument("opt", type=str, default="adam", help="Options are either adam or gd (as str)")
+parser.add_argument(
+    "opt", type=str, default="adam", help="Options are either adam or gd (as str)"
+)
 parser.add_argument("data_name", type=str)
 parser.add_argument("distance_function", type=str)
 
@@ -65,9 +67,19 @@ def main(
 
     optimizer = tf.keras.optimizers.Adam(learning_rate=lr)
 
-    unchanged_ever, cfe_distance, best_perturb = compute_cfe(model, feat_input, distance_function, optimizer, sigma,
-                                                             temperature, distance_weight, num_iter=num_iter,
-                                                             direction="all", x_train=x_train, verbose=1)
+    unchanged_ever, cfe_distance, best_perturb = compute_cfe(
+        model,
+        feat_input,
+        distance_function,
+        optimizer,
+        sigma,
+        temperature,
+        distance_weight,
+        num_iter=num_iter,
+        direction="all",
+        x_train=x_train,
+        verbose=1,
+    )
 
     end_time = time.time()
     print("Finished!! ~{} min".format(np.round((end_time - start_time) / 60)))

@@ -191,24 +191,51 @@ def test_compute_cfe(
     lr = 0.001
     num_itr = 2
 
-    unchanged, cfe_distance, best_perturb = compute_cfe(decision_tree_model, feat_input, distance_function, opt, sigma,
-                                                        temperature, distance_weight, num_itr, feat_input)
+    unchanged, cfe_distance, best_perturb = compute_cfe(
+        decision_tree_model,
+        feat_input,
+        distance_function,
+        opt,
+        sigma,
+        temperature,
+        distance_weight,
+        num_itr,
+        feat_input,
+    )
 
     assert isinstance(unchanged, int)
     assert isinstance(cfe_distance, np.ndarray)
     assert isinstance(best_perturb, np.ndarray)
     assert best_perturb.shape == feat_input.shape
 
-    unchanged, cfe_distance, best_perturb = compute_cfe(random_forest_model, feat_input, distance_function, opt, sigma,
-                                                        temperature, distance_weight, num_itr, feat_input)
+    unchanged, cfe_distance, best_perturb = compute_cfe(
+        random_forest_model,
+        feat_input,
+        distance_function,
+        opt,
+        sigma,
+        temperature,
+        distance_weight,
+        num_itr,
+        feat_input,
+    )
 
     assert isinstance(unchanged, int)
     assert isinstance(cfe_distance, np.ndarray)
     assert isinstance(best_perturb, np.ndarray)
     assert best_perturb.shape == feat_input.shape
 
-    unchanged, cfe_distance, best_perturb = compute_cfe(adaboost_model, feat_input, distance_function, opt, sigma,
-                                                        temperature, distance_weight, num_itr, feat_input)
+    unchanged, cfe_distance, best_perturb = compute_cfe(
+        adaboost_model,
+        feat_input,
+        distance_function,
+        opt,
+        sigma,
+        temperature,
+        distance_weight,
+        num_itr,
+        feat_input,
+    )
 
     assert isinstance(unchanged, int)
     assert isinstance(cfe_distance, np.ndarray)
