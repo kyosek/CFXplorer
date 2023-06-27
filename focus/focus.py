@@ -18,10 +18,11 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 class Focus:
     """
-    FOCUS :cite: computes Counterfactual Explanations (CFE) using the
+    FOCUS Lucic 2022 computes Counterfactual Explanations (CFE) using the
     gradient descent method for predictions of the tree-based models.
 
-    Args:
+    Parameters
+    ----------
     distance_function: str, optional (default="euclidean")
         Distance function - one of "euclidean", "cosine", "l1" and "mahal"
 
@@ -54,6 +55,12 @@ class Focus:
             - 0: silent
             - else: print current number of iterations
 
+    Reference
+    ---------
+
+
+    Examples
+    --------
 
     """
 
@@ -95,7 +102,7 @@ class Focus:
         Returns:
         tuple, number of examples that remain unchanged, the cfe distances for the changed examples and the best perturb
         """
-        X = Focus.prepare_X_by_perturb_direction(model, X, self.direction)
+        X = Focus.prepare_features_by_perturb_direction(model, X, self.direction)
 
         perturbed = tf.Variable(
             initial_value=X,
@@ -108,7 +115,7 @@ class Focus:
         mask_vector = np.ones(n_examples)
         best_perturb = np.zeros(perturbed.shape)
         best_distance = np.full(n_examples, np.inf)
-        perturb_iteration_found = np.full(n_examples, 1000 * self.num_iter, dtype=int)
+        # perturb_iteration_found = np.full(n_examples, 1000 * self.num_iter, dtype=int)
         predictions = tf.constant(model.predict(X), dtype=tf.int64)
         example_index = tf.constant(np.arange(n_examples, dtype=int))
         example_pred_class_index = tf.stack((example_index, predictions), axis=1)
@@ -147,9 +154,9 @@ class Focus:
             idx_flipped = np.flatnonzero(mask_vector == 0)
             mask_flipped = predictions != cur_predicts
 
-            perturb_iteration_found[idx_flipped] = np.minimum(
-                i, perturb_iteration_found[idx_flipped]
-            )
+            # perturb_iteration_found[idx_flipped] = np.minimum(
+            #     i, perturb_iteration_found[idx_flipped]
+            # )
 
             distance_np = distance.numpy()
             mask_smaller_dist = distance_np < best_distance
@@ -168,7 +175,30 @@ class Focus:
         return unchanged_ever, cfe_distance, best_perturb
 
     @staticmethod
-    def prepare_X_by_perturb_direction(model, X: np.ndarray, direction: str):
+    def prepare_features_by_perturb_direction(model, X: np.ndarray, direction: str):
+        """
+        Prepares the input data `X` based on the perturbation direction.
+
+        Args:
+            model (object): The model used for predicting the labels.
+            X (np.ndarray): The input data to be prepared based on the perturbation direction.
+            direction (str): The perturbation direction to consider. Available options: "positive", "negative", "both".
+
+        Returns:
+            np.ndarray: The prepared input data based on the perturbation direction.
+
+        Raises:
+            ValueError: If an invalid `direction` is provided.
+
+        This method filters and prepares the input data `X` based on the perturbation direction
+        specified by the `direction` argument. It uses the provided `model` to predict the labels for the input data.
+        The available options for `direction` are:
+        - "positive": Returns the subset of input data where the model predicts the label as 0.
+        - "negative": Returns the subset of input data where the model predicts the label as 1.
+        - "both": Returns the input data as is without any filtering.
+
+        Note that the `model` object should have a predict method that returns the predicted labels.
+        """
         if direction == "positive":
             return X[model.predict(X) == 0]
         elif direction == "negative":
@@ -385,12 +415,12 @@ class Focus:
 
     @staticmethod
     def filter_hinge_loss(
-        n_class,
-        mask_vector,
-        X,
-        sigma,
-        temperature,
-        model,
+            n_class,
+            mask_vector,
+            X,
+            sigma,
+            temperature,
+            model,
     ) -> tf.Tensor:
         """
         Calculates the filtered probabilities of each data point for the given model.
