@@ -99,8 +99,10 @@ class Focus:
         X: numpy array
             The input feature to generate CFE
 
-        Returns:
-        tuple, number of examples that remain unchanged, the cfe distances for the changed examples and the best perturb
+        Returns: tuple
+            - number of examples that remain unchanged
+            - the cfe distances for the changed examples
+            - the best perturbed features
         """
         X = Focus.prepare_features_by_perturb_direction(model, X, self.direction)
 
@@ -115,12 +117,11 @@ class Focus:
         mask_vector = np.ones(n_examples)
         best_perturb = np.zeros(perturbed.shape)
         best_distance = np.full(n_examples, np.inf)
-        # perturb_iteration_found = np.full(n_examples, 1000 * self.num_iter, dtype=int)
         predictions = tf.constant(model.predict(X), dtype=tf.int64)
         example_index = tf.constant(np.arange(n_examples, dtype=int))
         example_pred_class_index = tf.stack((example_index, predictions), axis=1)
 
-        for i in range(self.num_iter):
+        for i in range(1, self.num_iter):
             if self.verbose != 0:
                 print(f"iteration {i}")
 
@@ -151,12 +152,7 @@ class Focus:
 
             cur_predicts = model.predict(perturbed.numpy())
             mask_vector = np.equal(predictions, cur_predicts).astype(np.float32)
-            idx_flipped = np.flatnonzero(mask_vector == 0)
             mask_flipped = predictions != cur_predicts
-
-            # perturb_iteration_found[idx_flipped] = np.minimum(
-            #     i, perturb_iteration_found[idx_flipped]
-            # )
 
             distance_np = distance.numpy()
             mask_smaller_dist = distance_np < best_distance
@@ -169,8 +165,8 @@ class Focus:
             temp_perturb[mask_flipped] = perturbed[mask_flipped]
             best_perturb[mask_smaller_dist] = temp_perturb[mask_smaller_dist]
 
-            unchanged_ever = len(best_distance[best_distance == np.inf])
-            cfe_distance = np.mean(best_distance[best_distance != np.inf])
+        unchanged_ever = len(best_distance[best_distance == np.inf])
+        cfe_distance = np.mean(best_distance[best_distance != np.inf])
 
         return unchanged_ever, cfe_distance, best_perturb
 

@@ -56,7 +56,7 @@ def main(
 
     optimizer = tf.keras.optimizers.Adam(learning_rate=lr)
 
-    focus = Focus()
+    focus = Focus(num_iter=5)
 
     unchanged_ever, cfe_distance, best_perturb = focus.generate(model, feat_input)
 
