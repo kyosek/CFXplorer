@@ -58,7 +58,8 @@ def main(
 
     focus = Focus(num_iter=5)
 
-    unchanged_ever, cfe_distance, best_perturb = focus.generate(model, feat_input)
+    best_perturb = focus.generate(model, feat_input)
+    print(best_perturb)
 
     end_time = time.time()
     print("Finished!! ~{} min".format(np.round((end_time - start_time) / 60)))

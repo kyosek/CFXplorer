@@ -165,10 +165,10 @@ class Focus:
             temp_perturb[mask_flipped] = perturbed[mask_flipped]
             best_perturb[mask_smaller_dist] = temp_perturb[mask_smaller_dist]
 
-        unchanged_ever = len(best_distance[best_distance == np.inf])
-        cfe_distance = np.mean(best_distance[best_distance != np.inf])
+        print(f"The number of rows that are unchanged ever is {len(best_distance[best_distance == np.inf])}")
+        print(f"The mean distance is {np.mean(best_distance[best_distance != np.inf])}")
 
-        return unchanged_ever, cfe_distance, best_perturb
+        return best_perturb
 
     @staticmethod
     def prepare_features_by_perturb_direction(model, X: np.ndarray, direction: str):
