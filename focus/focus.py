@@ -18,15 +18,15 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 class Focus:
     """
-    FOCUS Lucic 2022 computes Counterfactual Explanations (CFE) using the
+    FOCUS Lucic, et al. 2022 computes Counterfactual Explanations (CFE) using the
     gradient descent method for predictions of the tree-based models.
 
     Parameters
     ----------
     distance_function: str, optional (default="euclidean")
-        Distance function - one of "euclidean", "cosine", "l1" and "mahal"
+        Distance function - one of "euclidean", "cosine", "l1" and "mahalabobis"
 
-    optimizer: Keras optimizer, optional (default=tf.keras.optimizers.Adam)
+    optimizer: Keras optimizer, optional (default=tf.keras.optimizers.Adam())
         Optimizer for gradient decent
 
     sigma: float, optional (default=10.0)
@@ -42,7 +42,7 @@ class Focus:
         Learning rate for gradient descent optimization
 
     num_iter: int, optional (default=100)
-        Number of iterations for gradient descent optimization (default=1_000)
+        Number of iterations for gradient descent optimization
 
     direction: str, optional (default="both")
         Direction of perturbation (e.g. both, positive and negative)
@@ -54,7 +54,9 @@ class Focus:
 
     Reference
     ---------
-    Lucic 2022
+    Lucic, A., Oosterhuis, H., Haned, H., & de Rijke, M. (2022, June).
+    FOCUS: Flexible optimizable counterfactual explanations for tree ensembles.
+    In Proceedings of the AAAI Conference on Artificial Intelligence (Vol. 36, No. 5, pp. 5313-5322).
 
     Examples
     --------
@@ -62,7 +64,7 @@ class Focus:
     focus = Focus()
 
     # Generate counterfactual explanations
-    cfe = focus.generate(model, X)
+    cfe_features = focus.generate(model, X)
 
     """
 
@@ -90,17 +92,33 @@ class Focus:
 
     def generate(self, model, X, x_train=None):
         """
-        Generate counterfactual explanations for the predictions from a tree-based models.
+        Generate counterfactual explanations for the predictions from a tree-based model.
 
         Args:
         model: model object
-            The machine learning model (e.g., DecisionTreeClassifier, RandomForestClassifier, AdaBoostClassifier).
+            The machine learning model (e.g., DecisionTreeClassifier, RandomForestClassifier, AdaBoostClassifier)
 
         X: numpy array
             The input feature to generate CFE
 
+        x_train: numpy array, optional (default=None)
+            The training data features - This will be used to calculate Mahalanobis distances
+
         Returns:
-            the best perturbed features
+            The best perturbed features
+
+        This method generates counterfactual explanations for the predictions made by a tree-based model.
+        It uses the gradient descent method to optimize the input features based on a combination of
+        hinge loss, approximate probability, and a distance term.
+        The `model` should be an instance of a tree-based model, such as DecisionTreeClassifier,
+        RandomForestClassifier, or AdaBoostClassifier.
+        The `X` parameter represents the input features for which counterfactual explanations are desired.
+        The `x_train` parameter is an optional argument that represents the training data features used
+        to compute the approximate probability.
+
+        The method returns
+        The best perturbed features,
+        which represent the optimized input features that result in counterfactual explanations.
         """
         X = Focus.prepare_features_by_perturb_direction(model, X, self.direction)
 
@@ -144,9 +162,7 @@ class Focus:
             )
             perturbed.assign(tf.clip_by_value(perturbed, 0, 1))
 
-            distance = calculate_distance(
-                self.distance_function, perturbed, X, x_train
-            )
+            distance = calculate_distance(self.distance_function, perturbed, X, x_train)
 
             cur_predicts = model.predict(perturbed.numpy())
             mask_vector = np.equal(predictions, cur_predicts).astype(np.float32)
@@ -163,7 +179,9 @@ class Focus:
             temp_perturb[mask_flipped] = perturbed[mask_flipped]
             best_perturb[mask_smaller_dist] = temp_perturb[mask_smaller_dist]
 
-        print(f"The number of rows that are unchanged ever is {len(best_distance[best_distance == np.inf])}")
+        print(
+            f"The number of rows that are unchanged ever is {len(best_distance[best_distance == np.inf])}"
+        )
         print(f"The mean distance is {np.mean(best_distance[best_distance != np.inf])}")
 
         return best_perturb
@@ -409,12 +427,12 @@ class Focus:
 
     @staticmethod
     def filter_hinge_loss(
-            n_class,
-            mask_vector,
-            X,
-            sigma,
-            temperature,
-            model,
+        n_class,
+        mask_vector,
+        X,
+        sigma,
+        temperature,
+        model,
     ) -> tf.Tensor:
         """
         Calculates the filtered probabilities of each data point for the given model.

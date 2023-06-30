@@ -108,7 +108,8 @@ def calculate_distance(
     Calculates the distance between the perturbed and feat_input data using the specified distance function.
 
     Args:
-    - distance_function (str): The distance function to use, can be either "euclidean", "cosine", "l1" or "mahal".
+    - distance_function (str): The distance function to use,
+        can be either "euclidean", "cosine", "l1" or "mahalanobis".
     - perturbed (tf.Variable): The perturbed data.
     - feat_input (np.ndarray): The original feature data.
     - x_train (np.ndarray, optional): The training data, required for the Mahalanobis distance calculation.
@@ -126,7 +127,7 @@ def calculate_distance(
         return safe_cosine(feat_input, perturbed)
     elif distance_function == "l1":
         return safe_l1(perturbed - feat_input)
-    elif distance_function == "mahal":
+    elif distance_function == "mahalanobis":
         try:
             return safe_mahal(perturbed - feat_input, x_train)
         except ValueError:
