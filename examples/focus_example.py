@@ -4,6 +4,7 @@ import time
 import pickle
 import pandas as pd
 import tensorflow as tf
+import torch
 import argparse
 
 
@@ -58,7 +59,7 @@ def main(
 
     focus = Focus(num_iter=5)
 
-    best_perturb = focus.generate(model, feat_input)
+    best_perturb = focus.generate(model, feat_input, x_train)
     print(best_perturb)
 
     end_time = time.time()

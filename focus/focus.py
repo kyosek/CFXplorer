@@ -47,9 +47,6 @@ class Focus:
     direction: str, optional (default="both")
         Direction of perturbation (e.g. both, positive and negative)
 
-    x_train: numpy array, optional (default=None)
-        Training data used to fit the original model - only used for Mahalanobis distance calculation
-
     verbose: int, optional (default=1)
         Verbosity mode.
             - 0: silent
@@ -57,10 +54,15 @@ class Focus:
 
     Reference
     ---------
-
+    Lucic 2022
 
     Examples
     --------
+    # Initialize FOCUS with default parameters
+    focus = Focus()
+
+    # Generate counterfactual explanations
+    cfe = focus.generate(model, X)
 
     """
 
@@ -74,7 +76,6 @@ class Focus:
         lr=0.001,
         num_iter=100,
         direction="both",
-        x_train=None,
         verbose=1,
     ):
         self.distance_function = distance_function
@@ -85,10 +86,9 @@ class Focus:
         self.lr = lr
         self.num_iter = num_iter
         self.direction = direction
-        self.x_train = x_train
         self.verbose = verbose
 
-    def generate(self, model, X: np.ndarray):
+    def generate(self, model, X, x_train=None):
         """
         Generate counterfactual explanations for the predictions from a tree-based models.
 
@@ -99,10 +99,8 @@ class Focus:
         X: numpy array
             The input feature to generate CFE
 
-        Returns: tuple
-            - number of examples that remain unchanged
-            - the cfe distances for the changed examples
-            - the best perturbed features
+        Returns:
+            the best perturbed features
         """
         X = Focus.prepare_features_by_perturb_direction(model, X, self.direction)
 
@@ -121,7 +119,7 @@ class Focus:
         example_index = tf.constant(np.arange(n_examples, dtype=int))
         example_pred_class_index = tf.stack((example_index, predictions), axis=1)
 
-        for i in range(1, self.num_iter):
+        for i in range(1, self.num_iter + 1):
             if self.verbose != 0:
                 print(f"iteration {i}")
 
@@ -134,11 +132,11 @@ class Focus:
                 mask_vector,
                 perturbed,
                 distance_weight,
+                x_train,
                 self.distance_function,
                 self.sigma,
                 self.temperature,
                 self.optimizer,
-                self.x_train,
             )
 
             self.optimizer.apply_gradients(
@@ -147,7 +145,7 @@ class Focus:
             perturbed.assign(tf.clip_by_value(perturbed, 0, 1))
 
             distance = calculate_distance(
-                self.distance_function, perturbed, X, self.x_train
+                self.distance_function, perturbed, X, x_train
             )
 
             cur_predicts = model.predict(perturbed.numpy())
@@ -214,11 +212,11 @@ class Focus:
         mask_vector,
         perturbed,
         distance_weight,
+        x_train,
         distance_function,
         sigma,
         temperature,
         optimizer,
-        x_train,
     ):
         """
         Computes the gradient of the loss function with respect to the variables to optimize.
@@ -251,7 +249,7 @@ class Focus:
         return tape.gradient(loss, to_optimize)
 
     @staticmethod
-    def parse_class_tree(tree, X: np.ndarray, sigma: float) -> list:
+    def parse_class_tree(tree, X, sigma: float) -> list:
         """
         Compute impurity of each leaf node in a decision tree and approximate it using sigmoid function.
 
