@@ -2,12 +2,15 @@ import random
 import numpy as np
 import pandas as pd
 import warnings
+import seaborn as sns
+import matplotlib.pyplot as plt
 
+from sklearn.decomposition import PCA
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 
-warnings.filterwarnings('ignore')
+warnings.filterwarnings("ignore")
 
 
 def set_random_seeds(seed_value):
@@ -61,14 +64,16 @@ def generate_example_data(rows: int):
 
 def standardize_features(x_train, x_test):
     """
-    Standardize features in the range of 0 and 1 using scikit-learn's MinMaxScaler.
+    Standardizes the features of the input data using Min-Max scaling.
 
     Args:
-        data (pandas.DataFrame): The input data containing the features to be standardized.
+        x_train (pandas.DataFrame or numpy.ndarray): The training data.
+        x_test (pandas.DataFrame or numpy.ndarray): The test data.
 
     Returns:
-        pandas.DataFrame: The standardized data with features in the range of 0 and 1.
-
+        tuple: A tuple containing two pandas DataFrames.
+            - The first DataFrame contains the standardized features of the training data.
+            - The second DataFrame contains the standardized features of the test data.
     """
     # Create a MinMaxScaler object
     scaler = MinMaxScaler(feature_range=(0, 1))
@@ -102,3 +107,53 @@ def train_decision_tree_model(X_train, y_train):
     model.fit(X_train, y_train)
 
     return model
+
+
+def prepare_plot_df(model, X, X_focus):
+    """
+    Prepares the data for plotting by performing PCA (Principal Component Analysis) on the input data.
+
+    Args:
+        model (object): A trained machine learning model capable of making predictions.
+        X (array-like): The input data for which predictions are made.
+        X_focus (array-like): Additional input data used for focus predictions.
+
+    Returns:
+        tuple: A tuple containing two pandas DataFrames.
+            - The first DataFrame contains the PCA-transformed features of `X` and the corresponding predictions.
+            - The second DataFrame contains the PCA-transformed features of `X_focus` and the corresponding focus predictions.
+    """
+    pca = PCA(n_components=2)
+
+    predictions = pd.DataFrame(model.predict(X), columns=["predictions"])
+    focus_predictions = pd.DataFrame(model.predict(X_focus), columns=["predictions"])
+
+    pca.fit(X)
+    pca_features = pd.DataFrame(pca.transform(X), columns=["pca1", "pca2"])
+    pca_focus_features = pd.DataFrame(pca.transform(X_focus), columns=["pca1", "pca2"])
+
+    return pd.concat([pca_features, predictions], axis=1), pd.concat(
+        [pca_focus_features, focus_predictions], axis=1
+    )
+
+
+def plot_pca(plot_df, focus_plot_df):
+    """
+    Plots the PCA-transformed features and corresponding predictions before and after applying FOCUS.
+
+    Args:
+        plot_df (pandas.DataFrame): A DataFrame containing the PCA-transformed features and predictions before applying FOCUS.
+        focus_plot_df (pandas.DataFrame): A DataFrame containing the PCA-transformed features and predictions after applying FOCUS.
+
+    Returns:
+        None: This function displays the plot but does not return any value.
+    """
+    fig, axes = plt.subplots(1, 2, figsize=(20, 8))
+    sns.scatterplot(
+        data=focus_plot_df, x="pca1", y="pca2", hue="predictions", ax=axes[0]
+    )
+    axes[0].set_title("After applying FOCUS")
+    sns.scatterplot(data=plot_df, x="pca1", y="pca2", hue="predictions", ax=axes[1])
+    axes[1].set_title("Before applying FOCUS")
+    fig.suptitle("Prediction Before and After FOCUS comparison")
+    plt.show()
