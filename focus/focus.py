@@ -47,6 +47,9 @@ class Focus:
     direction: str, optional (default="both")
         Direction of perturbation (e.g. both, positive and negative)
 
+    hyperparameter_tuning: bool, optional (default=False)
+        if True, generate method returns unchanged_ever and mean_distance
+
     verbose: int, optional (default=1)
         Verbosity mode.
             - 0: silent
@@ -78,6 +81,7 @@ class Focus:
         lr=0.001,
         num_iter=100,
         direction="both",
+        hyperparameter_tuning=False,
         verbose=1,
     ):
         self.distance_function = distance_function
@@ -88,6 +92,7 @@ class Focus:
         self.lr = lr
         self.num_iter = num_iter
         self.direction = direction
+        self.hyperparameter_tuning = hyperparameter_tuning
         self.verbose = verbose
 
     def generate(self, model, X, x_train=None):
@@ -179,12 +184,22 @@ class Focus:
             temp_perturb[mask_flipped] = perturbed[mask_flipped]
             best_perturb[mask_smaller_dist] = temp_perturb[mask_smaller_dist]
 
-        print(
-            f"The number of rows that are unchanged ever is {len(best_distance[best_distance == np.inf])}"
-        )
-        print(f"The mean distance is {np.mean(best_distance[best_distance != np.inf])}")
+        if self.hyperparameter_tuning:
+            return (
+                best_perturb,
+                len(best_distance[best_distance == np.inf]),
+                np.mean(best_distance[best_distance != np.inf]),
+            )
 
-        return best_perturb
+        else:
+            print(
+                f"The number of rows that are unchanged ever is {len(best_distance[best_distance == np.inf])}"
+            )
+            print(
+                f"The mean distance is {np.mean(best_distance[best_distance != np.inf])}"
+            )
+
+            return best_perturb
 
     @staticmethod
     def prepare_features_by_perturb_direction(model, X: np.ndarray, direction: str):

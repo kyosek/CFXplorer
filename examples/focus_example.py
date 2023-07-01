@@ -8,6 +8,7 @@ from utils import (
     prepare_plot_df,
     plot_pca,
 )
+import tensorflow as tf
 
 
 def run_example():
@@ -27,7 +28,11 @@ def run_example():
     X_train, X_test = standardize_features(X_train, X_test)
     model = train_decision_tree_model(X_train, y_train)
 
-    focus = Focus(num_iter=1000, distance_function="mahalanobis")
+    focus = Focus(
+        num_iter=1000,
+        distance_function="mahalanobis",
+        optimizer=tf.keras.optimizers.RMSprop(),
+    )
 
     perturbed_feats = focus.generate(model, X_test, X_train)
 
