@@ -121,8 +121,7 @@ class Focus:
         The `x_train` parameter is an optional argument that represents the training data features used
         to compute the approximate probability.
 
-        The method returns
-        The best perturbed features,
+        The method returns the best perturbed features,
         which represent the optimized input features that result in counterfactual explanations.
         """
         X = Focus.prepare_features_by_perturb_direction(model, X, self.direction)
