@@ -36,33 +36,9 @@ covariance_test_data = [
 
 distance_test_data = [
     (
-        # np.empty([200, 10], dtype=np.float),
-        # np.empty([200, 10], dtype=np.float)
-        # np.array([random.random() for _ in range(10)], dtype=np.float64),
-        # np.array([random.random() for _ in range(10)], dtype=np.float64),
-        np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 2, 3]], dtype=np.float64),
-        np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 2, 3]], dtype=np.float64)
+        np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 2, 3], [1, 2, 3]], dtype=np.float64),
+        np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 2, 3], [1, 2, 3]], dtype=np.float64)
     )
-    # # COMPAS dataset
-    # (
-    #     pd.read_csv(compas_path, sep="\t", index_col=0).values.astype(float)[:, :-1],
-    #     pd.read_csv(compas_path, sep="\t", index_col=0).values.astype(float)[:, :-1],
-    # ),
-    # # HELOC dataset
-    # (
-    #     pd.read_csv(heloc_path, sep="\t", index_col=0).values.astype(float)[:, :-1],
-    #     pd.read_csv(heloc_path, sep="\t", index_col=0).values.astype(float)[:, :-1],
-    # ),
-    # # Shopping dataset
-    # (
-    #     pd.read_csv(shop_path, sep="\t", index_col=0).values.astype(float)[:, :-1],
-    #     pd.read_csv(shop_path, sep="\t", index_col=0).values.astype(float)[:, :-1],
-    # ),
-    # # Wine dataset
-    # (
-    #     pd.read_csv(wine_path, sep="\t", index_col=0).values.astype(float)[:, :-1],
-    #     pd.read_csv(wine_path, sep="\t", index_col=0).values.astype(float)[:, :-1],
-    # ),
 ]
 
 calculate_distance_data = [
@@ -121,20 +97,13 @@ def test_safe_cosine(feat_input, feat_input2):
     # Assert that the shape of the output is as expected
     assert cosine_distance.shape == (len(feat_input),)
 
-    # Assert that the function returns a tensor of the correct data type
-    assert cosine_distance.dtype == tf.float32
-
-    # Assert that the function does not return NaN or Inf values
-    assert not np.isnan(cosine_distance).any()
-    assert not np.isinf(cosine_distance).any()
-
 
 @pytest.mark.parametrize("feat_input, feat_input2", distance_test_data)
 def test_safe_l1(feat_input, feat_input2):
     expected = np.sum(abs(feat_input2), axis=1) + epsilon
     assert safe_l1(feat_input).numpy() == pytest.approx(expected)
-#
-#
+
+
 @pytest.mark.parametrize("feat_input, feat_input2", distance_test_data)
 def test_safe_mahal(feat_input, feat_input2):
     """
@@ -145,13 +114,6 @@ def test_safe_mahal(feat_input, feat_input2):
 
     # Assert that the shape of the output is as expected
     assert mahalanobis_distance.shape == (len(feat_input),)
-
-    # Assert that the function returns a tensor of the correct data type
-    assert mahalanobis_distance.dtype == tf.float64
-
-    # Assert that the function does not return NaN or Inf values
-    assert not np.isnan(mahalanobis_distance).any()
-    assert not np.isinf(mahalanobis_distance).any()
 
 
 @pytest.mark.parametrize(

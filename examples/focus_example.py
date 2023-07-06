@@ -30,7 +30,7 @@ def run_example():
 
     focus = Focus(
         num_iter=1000,
-        distance_function="mahalanobis",
+        distance_function="cosine",
         optimizer=tf.keras.optimizers.RMSprop(),
     )
 

@@ -30,8 +30,8 @@ def safe_cosine(feat_input, perturbed, epsilon=10.0 ** -10) -> tf.Tensor:
     Returns:
         tf.Tensor: The cosine distance between `feat_input` and `perturbed` as a tensor.
     """
-    normalize_x1 = tf.nn.l2_normalize(feat_input, dim=1)
-    normalize_x2 = tf.nn.l2_normalize(perturbed, dim=1)
+    normalize_x1 = tf.nn.l2_normalize(feat_input)
+    normalize_x2 = tf.nn.l2_normalize(perturbed)
     cosine_loss = tf.keras.losses.CosineSimilarity(
         axis=-1,
         reduction=tf.keras.losses.Reduction.NONE,
