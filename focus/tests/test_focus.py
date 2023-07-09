@@ -1,10 +1,8 @@
-import numpy as np
 import pytest
 from sklearn.datasets import make_classification
 from sklearn.ensemble import AdaBoostClassifier, RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
 import tensorflow as tf
-import pandas as pd
 from focus import Focus
 
 
@@ -31,18 +29,30 @@ model_data = [
 ]
 
 focus_model_data = [
-    (dt_model, x_test, None, "euclidean", False),
-    (ab_model, x_test, None, "l1", False),
-    (rf_model, x_test, None, "euclidean", False),
-    (dt_model, x_test, x_train, "mahalanobis", False),
-    (ab_model, x_test, x_train, "mahalanobis", False),
-    (rf_model, x_test, x_train, "mahalanobis", False),
-    (dt_model, x_test, None, "cosine", True),
-    (ab_model, x_test, None, "cosine", True),
-    (rf_model, x_test, None, "l1", True),
-    (dt_model, x_test, x_train, "mahalanobis", True),
-    (ab_model, x_test, x_train, "mahalanobis", True),
-    (rf_model, x_test, x_train, "mahalanobis", True),
+    (dt_model, x_test, None, tf.keras.optimizers.Adam(), "euclidean", False),
+    (ab_model, x_test, None, tf.keras.optimizers.Adam(), "l1", False),
+    (rf_model, x_test, None, tf.keras.optimizers.Adam(), "euclidean", False),
+    (dt_model, x_test, x_train, tf.keras.optimizers.Adam(), "mahalanobis", False),
+    (ab_model, x_test, x_train, tf.keras.optimizers.Adam(), "mahalanobis", False),
+    (rf_model, x_test, x_train, tf.keras.optimizers.Adam(), "mahalanobis", False),
+    (dt_model, x_test, None, tf.keras.optimizers.Adam(), "cosine", True),
+    (ab_model, x_test, None, tf.keras.optimizers.Adam(), "cosine", True),
+    (rf_model, x_test, None, tf.keras.optimizers.Adam(), "l1", True),
+    (dt_model, x_test, x_train, tf.keras.optimizers.Adam(), "mahalanobis", True),
+    (ab_model, x_test, x_train, tf.keras.optimizers.Adam(), "mahalanobis", True),
+    (rf_model, x_test, x_train, tf.keras.optimizers.Adam(), "mahalanobis", True),
+    (dt_model, x_test, None, tf.keras.optimizers.Nadam(), "euclidean", False),
+    (ab_model, x_test, None, tf.keras.optimizers.RMSprop(), "l1", False),
+    (rf_model, x_test, None, tf.keras.optimizers.Ftrl(), "euclidean", False),
+    (dt_model, x_test, x_train, tf.keras.optimizers.Ftrl(), "mahalanobis", False),
+    (ab_model, x_test, x_train, tf.keras.optimizers.Nadam(), "mahalanobis", False),
+    (rf_model, x_test, x_train, tf.keras.optimizers.SGD(), "mahalanobis", False),
+    (dt_model, x_test, None, tf.keras.optimizers.SGD(), "cosine", True),
+    (ab_model, x_test, None, tf.keras.optimizers.Adagrad(), "cosine", True),
+    (rf_model, x_test, None, tf.keras.optimizers.Adadelta(), "l1", True),
+    (dt_model, x_test, x_train, tf.keras.optimizers.Adamax(), "mahalanobis", True),
+    (ab_model, x_test, x_train, tf.keras.optimizers.Adamax(), "mahalanobis", True),
+    (rf_model, x_test, x_train, tf.keras.optimizers.Adadelta(), "mahalanobis", True),
 ]
 
 
@@ -55,11 +65,12 @@ def test_prepare_features_by_perturb_direction(model, X):
 
 
 @pytest.mark.parametrize(
-    "model, x_test, x_train, distance_function, hyperparameter_tuning", focus_model_data
+    "model, x_test, x_train, optimizer, distance_function, hyperparameter_tuning", focus_model_data
 )
-def test_generate(model, x_test, x_train, distance_function, hyperparameter_tuning):
+def test_generate(model, x_test, x_train, optimizer, distance_function, hyperparameter_tuning):
     focus = Focus(
         num_iter=2,
+        optimizer=optimizer,
         distance_function=distance_function,
         hyperparameter_tuning=hyperparameter_tuning,
     )
