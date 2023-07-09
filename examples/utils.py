@@ -24,7 +24,9 @@ def generate_example_data(rows: int = 1000):
         pandas.DataFrame: A DataFrame containing the randomly generated data.
 
     """
-    X, y = make_classification(n_samples=rows, n_features=10, n_classes=2, random_state=42)
+    X, y = make_classification(
+        n_samples=rows, n_features=10, n_classes=2, random_state=42
+    )
 
     return train_test_split(X, y, test_size=0.2, random_state=42)
 

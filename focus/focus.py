@@ -427,7 +427,9 @@ class Focus:
         elif isinstance(model, RandomForestClassifier):
             weights = np.full(len(model.estimators_), 1 / len(model.estimators_))
         else:
-            raise ValueError("model object should be either AdaBoostClassifier or RandomForestClassifier")
+            raise ValueError(
+                "model object should be either AdaBoostClassifier or RandomForestClassifier"
+            )
 
         logits = sum(weight * tree for weight, tree in zip(weights, dt_prob_list))
 

@@ -39,7 +39,7 @@ def objective(trial):
         lr=round(trial.suggest_float("lr", 0.001, 0.01, step=0.001), 3),
         optimizer=tf.keras.optimizers.RMSprop(),
         hyperparameter_tuning=True,
-        verbose=0
+        verbose=0,
     )
 
     best_perturb, unchanged_ever, cfe_distance = focus.generate(model, X_test)
