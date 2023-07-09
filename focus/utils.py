@@ -1,7 +1,5 @@
 import tensorflow as tf
 import numpy as np
-import os
-import errno
 
 
 def safe_euclidean(matrix_diff, epsilon=10.0 ** -10) -> tf.Tensor:
@@ -32,8 +30,8 @@ def safe_cosine(feat_input, perturbed, epsilon=10.0 ** -10) -> tf.Tensor:
     Returns:
         tf.Tensor: The cosine distance between `feat_input` and `perturbed` as a tensor.
     """
-    normalize_x1 = tf.nn.l2_normalize(feat_input, dim=1)
-    normalize_x2 = tf.nn.l2_normalize(perturbed, dim=1)
+    normalize_x1 = tf.nn.l2_normalize(feat_input)
+    normalize_x2 = tf.nn.l2_normalize(perturbed)
     cosine_loss = tf.keras.losses.CosineSimilarity(
         axis=-1,
         reduction=tf.keras.losses.Reduction.NONE,
@@ -110,7 +108,8 @@ def calculate_distance(
     Calculates the distance between the perturbed and feat_input data using the specified distance function.
 
     Args:
-    - distance_function (str): The distance function to use, can be either "euclidean", "cosine", "l1" or "mahal".
+    - distance_function (str): The distance function to use,
+        can be either "euclidean", "cosine", "l1" or "mahalanobis".
     - perturbed (tf.Variable): The perturbed data.
     - feat_input (np.ndarray): The original feature data.
     - x_train (np.ndarray, optional): The training data, required for the Mahalanobis distance calculation.
@@ -128,23 +127,8 @@ def calculate_distance(
         return safe_cosine(feat_input, perturbed)
     elif distance_function == "l1":
         return safe_l1(perturbed - feat_input)
-    elif distance_function == "mahal":
+    elif distance_function == "mahalanobis":
         try:
-            x_train.any()
             return safe_mahal(perturbed - feat_input, x_train)
         except ValueError:
             raise ValueError("x_train is empty")
-
-
-def mkdir_p(path):
-    try:
-        os.makedirs(path)
-    except OSError as exc:
-        if exc.errno != errno.EEXIST or not os.path.isdir(path):
-            raise
-
-
-def safe_open(path, w):
-    """ Open "path" for writing, creating any parent directories as needed."""
-    mkdir_p(os.path.dirname(path))
-    return open(path, w)
