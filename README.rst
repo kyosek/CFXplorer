@@ -17,9 +17,9 @@ FOCUS: Flexible Optimizable Counterfactual Explanations for Tree Ensembles
 
 -----
 
-This library is an implementation of [FOCUS: Flexible Optimizable Counterfactual Explanations for Tree Ensembles](https://arxiv.org/abs/1911.12199).
+This library is an implementation of `FOCUS: Flexible Optimizable Counterfactual Explanations for Tree Ensembles <https://arxiv.org/abs/1911.12199>`_.
 
-TLDR; FOCUS generates optimal distance counterfactual explanations to the original data for all the instances in tree‐based machine learning models.
+FOCUS generates optimal distance counterfactual explanations to the original data for all the instances in tree‐based machine learning models.
 
 **FOCUS counterfactual explanation generation with 3 Lines of Code**\ :
 
