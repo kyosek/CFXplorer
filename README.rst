@@ -7,6 +7,14 @@ FOCUS: Flexible Optimizable Counterfactual Explanations for Tree Ensembles
    :target: https://pypi.org/project/focus/
    :alt: PyPI version
 
+.. image:: https://coveralls.io/repos/github/kyosek/focus/badge.svg
+   :target: https://coveralls.io/github/kyosek/focus
+   :alt: Coverage Status
+
+.. image:: https://api.codeclimate.com/v1/badges/bdc3d8d0454274c753c4/maintainability
+   :target: https://codeclimate.com/github/kyosek/focus/maintainability
+   :alt: Maintainability
+
 -----
 
 This library is an implementation of [FOCUS: Flexible Optimizable Counterfactual Explanations for Tree Ensembles](https://arxiv.org/abs/1911.12199).
