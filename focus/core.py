@@ -1,12 +1,12 @@
 """
 Generate counterfactual explanation for predictions of tree-based models.
 """
-from __future__ import division
-from __future__ import print_function
+from __future__ import division, print_function
 
-import tensorflow as tf
-import numpy as np
 import os
+
+import numpy as np
+import tensorflow as tf
 from sklearn.ensemble import AdaBoostClassifier, RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
 
@@ -17,8 +17,9 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 class Focus:
     """
-    FOCUS Lucic, et al. 2022 computes Counterfactual Explanations (CFE) using the
-    gradient descent method for predictions of the tree-based models.
+    FOCUS Lucic, et al. 2022 computes
+    Counterfactual Explanations (CFE) using the gradient descent
+    method for predictions of the tree-based models.
 
     Parameters
     ----------
@@ -460,7 +461,8 @@ class Focus:
         - X (tf.Tensor): The feature input for the model.
         - sigma (float): The value of sigma for computing the probabilities.
         - temperature (float): The temperature to be used for the softmax function.
-        - model: The machine learning model (e.g., DecisionTreeClassifier, RandomForestClassifier, AdaBoostClassifier).
+        - model: The machine learning model;
+            e.g., DecisionTreeClassifier, RandomForestClassifier, AdaBoostClassifier.
 
         Returns:
         - hinge_loss (tf.Tensor): The filtered probabilities of each data point.

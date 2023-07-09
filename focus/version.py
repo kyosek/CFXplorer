@@ -1,5 +1,6 @@
 """
-``focus`` is a python package for generating counterfactual explanations for a tree-based model
+``focus`` is a python package for
+generating counterfactual explanations for a tree-based model
 """
 # PEP0440 compatible formatted version, see:
 # https://www.python.org/dev/peps/pep-0440/

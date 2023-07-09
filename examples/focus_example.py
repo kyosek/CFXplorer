@@ -1,14 +1,16 @@
-import numpy as np
-from focus import Focus
 import time
+
+import numpy as np
+import tensorflow as tf
 from utils import (
     generate_example_data,
-    train_decision_tree_model,
-    standardize_features,
-    prepare_plot_df,
     plot_pca,
+    prepare_plot_df,
+    standardize_features,
+    train_decision_tree_model,
 )
-import tensorflow as tf
+
+from focus import Focus
 
 
 def run_example():

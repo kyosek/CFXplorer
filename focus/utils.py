@@ -1,5 +1,5 @@
-import tensorflow as tf
 import numpy as np
+import tensorflow as tf
 
 
 def safe_euclidean(matrix_diff, epsilon=10.0 ** -10) -> tf.Tensor:

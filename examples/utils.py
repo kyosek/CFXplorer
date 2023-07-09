@@ -1,14 +1,14 @@
+import warnings
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import warnings
 import seaborn as sns
-import matplotlib.pyplot as plt
-
 from sklearn.datasets import make_classification
 from sklearn.decomposition import PCA
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.model_selection import train_test_split
 
 warnings.filterwarnings("ignore")
 
@@ -89,8 +89,10 @@ def prepare_plot_df(model, X, X_focus):
 
     Returns:
         tuple: A tuple containing two pandas DataFrames.
-            - The first DataFrame contains the PCA-transformed features of `X` and the corresponding predictions.
-            - The second DataFrame contains the PCA-transformed features of `X_focus` and the corresponding focus predictions.
+            - The first DataFrame contains the PCA-transformed features of `X`
+                and the corresponding predictions.
+            - The second DataFrame contains the PCA-transformed features of `X_focus`
+                and the corresponding focus predictions.
     """
     pca = PCA(n_components=2)
 
@@ -111,8 +113,10 @@ def plot_pca(plot_df, focus_plot_df):
     Plots the PCA-transformed features and corresponding predictions before and after applying FOCUS.
 
     Args:
-        plot_df (pandas.DataFrame): A DataFrame containing the PCA-transformed features and predictions before applying FOCUS.
-        focus_plot_df (pandas.DataFrame): A DataFrame containing the PCA-transformed features and predictions after applying FOCUS.
+        plot_df (pandas.DataFrame): A DataFrame containing the PCA-transformed features and
+            predictions before applying FOCUS.
+        focus_plot_df (pandas.DataFrame): A DataFrame containing the PCA-transformed features and
+            predictions after applying FOCUS.
 
     Returns:
         None: This function displays the plot but does not return any value.

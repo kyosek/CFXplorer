@@ -1,18 +1,17 @@
-import numpy as np
 import random
+
+import numpy as np
+import pytest
 import tensorflow as tf
 
-import pytest
-
 from focus.utils import (
-    safe_euclidean,
+    calculate_distance,
     safe_cosine,
+    safe_euclidean,
     safe_l1,
     safe_mahal,
     tf_cov,
-    calculate_distance,
 )
-
 
 epsilon = 10.0 ** -10
 random.seed(42)

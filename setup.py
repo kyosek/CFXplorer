@@ -1,9 +1,12 @@
-from setuptools import setup, find_packages
-
-from os import path
 from io import open
+from os import path
 
-DESCRIPTION = "``FOCUS`` is a python package for generating counterfactual explanations for a tree-based model"
+from setuptools import find_packages, setup
+
+DESCRIPTION = (
+    "``FOCUS`` is a python package for "
+    "generating counterfactual explanations for a tree-based model"
+)
 
 
 # get __version__ from _version.py
@@ -12,6 +15,7 @@ with open(ver_file) as f:
     exec(f.read())
 
 this_directory = path.abspath(path.dirname(__file__))
+
 
 # read the contents of README.rst
 def readme():
