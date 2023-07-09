@@ -21,7 +21,6 @@ def run_example():
     Returns:
         None: This function displays the plots but does not return any value.
     """
-
     start_time = time.time()
 
     X_train, X_test, y_train, y_test = generate_example_data(1000)

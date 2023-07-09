@@ -1,7 +1,6 @@
 """
 Generate counterfactual explanation for predictions of tree-based models.
 """
-
 from __future__ import division
 from __future__ import print_function
 

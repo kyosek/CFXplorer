@@ -68,6 +68,7 @@ def test_prepare_features_by_perturb_direction(model, X):
     "model, x_test, x_train, optimizer, distance_function, hyperparameter_tuning", focus_model_data
 )
 def test_generate(model, x_test, x_train, optimizer, distance_function, hyperparameter_tuning):
+    """Test `generate` method by using multiple combinations of different parameters"""
     focus = Focus(
         num_iter=2,
         optimizer=optimizer,
