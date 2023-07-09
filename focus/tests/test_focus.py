@@ -65,9 +65,12 @@ def test_prepare_features_by_perturb_direction(model, X):
 
 
 @pytest.mark.parametrize(
-    "model, x_test, x_train, optimizer, distance_function, hyperparameter_tuning", focus_model_data
+    "model, x_test, x_train, optimizer, distance_function, hyperparameter_tuning",
+    focus_model_data,
 )
-def test_generate(model, x_test, x_train, optimizer, distance_function, hyperparameter_tuning):
+def test_generate(
+    model, x_test, x_train, optimizer, distance_function, hyperparameter_tuning
+):
     """Test `generate` method by using multiple combinations of different parameters"""
     focus = Focus(
         num_iter=2,
@@ -76,7 +79,9 @@ def test_generate(model, x_test, x_train, optimizer, distance_function, hyperpar
         hyperparameter_tuning=hyperparameter_tuning,
     )
     if hyperparameter_tuning:
-        best_perturb, unchanged_ever, best_distance = focus.generate(model, x_test, x_train)
+        best_perturb, unchanged_ever, best_distance = focus.generate(
+            model, x_test, x_train
+        )
 
         assert best_perturb.all() != x_test.all()
         assert isinstance(unchanged_ever, int)
