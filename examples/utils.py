@@ -1,4 +1,3 @@
-import random
 import numpy as np
 import pandas as pd
 import warnings
@@ -12,18 +11,6 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 
 warnings.filterwarnings("ignore")
-
-
-def set_random_seeds(seed_value):
-    """
-    Set random seeds for reproducibility.
-
-    Args:
-        seed_value (int): The seed value to set for random number generators.
-
-    """
-    random.seed(seed_value)
-    np.random.seed(seed_value)
 
 
 def generate_example_data(rows: int = 1000):
