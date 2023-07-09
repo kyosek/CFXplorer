@@ -1,50 +1,85 @@
+import random
 import numpy as np
 import pytest
-from unittest.mock import MagicMock
+from sklearn.ensemble import AdaBoostClassifier, RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
 import tensorflow as tf
 import pandas as pd
 from focus import Focus
 
-
-@pytest.fixture
-def model():
-    return MagicMock()
+random.seed(42)
+np.random.seed(42)
 
 
 @pytest.fixture
 def X():
-    return pd.DataFrame([[1, 2, 3], [4, 5, 6]])
+    data = []
+
+    for _ in range(300):
+        # Generate random features
+        features = [random.random() for _ in range(10)]
+        data.append(features)
+
+    # Create a pandas DataFrame from the data
+    column_names = [f"feature_{i + 1}" for i in range(10)]
+    df = pd.DataFrame(data, columns=column_names)
+    return df
 
 
-def test_init(self):
-    self.assertEqual(self.focus.distance_function, "euclidean")
-    self.assertIsInstance(self.focus.optimizer, MagicMock)
-    self.assertEqual(self.focus.sigma, 10.0)
-    self.assertEqual(self.focus.temperature, 1.0)
-    self.assertEqual(self.focus.distance_weight, 0.01)
-    self.assertEqual(self.focus.lr, 0.001)
-    self.assertEqual(self.focus.num_iter, 100)
-    self.assertEqual(self.focus.direction, "both")
-    self.assertFalse(self.focus.hyperparameter_tuning)
-    self.assertEqual(self.focus.verbose, 1)
+@pytest.fixture
+def y():
+    targets = []
+
+    for _ in range(300):
+        # Generate random features
+        target = random.randint(0, 1)
+        targets.append(target)
+
+    # Create a pandas DataFrame from the data
+    df = pd.DataFrame(targets)
+    return df
 
 
-def test_generate(self):
-    perturbed = self.focus.generate(self.model, self.X)
-    self.assertEqual(perturbed.shape, self.X.shape)
+@pytest.fixture
+def dt_model(X, y):
+    model = DecisionTreeClassifier(random_state=42)
+    model.fit(X)
+    return model
 
 
+@pytest.fixture
+def ab_model(X, y):
+    model = AdaBoostClassifier(random_state=42)
+    model.fit(X, y)
+    return model
+
+
+@pytest.fixture
+def rf_model(X, y):
+    model = RandomForestClassifier(random_state=42)
+    model.fit(X, y)
+    return model
+
+
+model_data = [
+    (DecisionTreeClassifier(random_state=42).fit(X, y), X),
+    (ab_model, X),
+    (rf_model, X),
+]
+
+
+@pytest.mark.parametrize("model, X", model_data)
 def test_prepare_features_by_perturb_direction(model, X):
     focus = Focus()
     direction = "positive"
     prepared_X = focus.prepare_features_by_perturb_direction(model, X, direction)
-    assert prepared_X.shape == (0, 3)
+    assert len(prepared_X) < len(X)
 
 
 def test_compute_gradient(model, X):
     focus = Focus()
     predictions = tf.constant([0, 1])
-    to_optimize = [tf.Variable(0.5), tf.Variable(0.7)]
+    to_optimize = [X]
     example_pred_class_index = tf.constant([[0, 0], [1, 1]])
     mask_vector = tf.constant([True, False])
     perturbed = tf.constant([[1, 2, 3], [7, 8, 9]])
@@ -74,7 +109,7 @@ def test_compute_gradient(model, X):
     assert isinstance(gradient, tf.Tensor)
 
 
-def test_parse_class_tree():
+def test_parse_class_tree(X):
     tree = MagicMock()
     X = np.array([[1, 2, 3], [4, 5, 6]])
     sigma = 0.5
@@ -84,7 +119,7 @@ def test_parse_class_tree():
     assert isinstance(impurity_values, list)
 
 
-def test_get_prob_classification_tree():
+def test_get_prob_classification_tree(X):
     tree = MagicMock()
     X = tf.constant([[1, 2, 3], [4, 5, 6]])
     sigma = 0.5

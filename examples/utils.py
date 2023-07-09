@@ -5,6 +5,7 @@ import warnings
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+from sklearn.datasets import make_classification
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.tree import DecisionTreeClassifier
@@ -25,7 +26,7 @@ def set_random_seeds(seed_value):
     np.random.seed(seed_value)
 
 
-def generate_example_data(rows: int):
+def generate_example_data(rows: int = 1000):
     """
     Generate random data with a binary target variable and 10 features.
 
@@ -36,29 +37,8 @@ def generate_example_data(rows: int):
         pandas.DataFrame: A DataFrame containing the randomly generated data.
 
     """
-    data = []
+    X, y = make_classification(n_samples=rows, n_features=10, n_classes=2, random_state=42)
 
-    set_random_seeds(42)
-
-    for _ in range(rows):
-        # Generate random features
-        features = [random.uniform(0, 500) for _ in range(10)]
-
-        # Generate random target variable (0 or 1)
-        target = random.randint(0, 1)
-
-        # Append the data row to the dataset
-        data.append(features + [target])
-
-    # Create a pandas DataFrame from the data
-    column_names = [f"feature_{i + 1}" for i in range(10)] + ["target"]
-    df = pd.DataFrame(data, columns=column_names)
-
-    # Separate features and target variable
-    X = df.drop(columns=["target"])
-    y = df["target"].to_frame()
-
-    # Split the data into training and testing sets
     return train_test_split(X, y, test_size=0.2, random_state=42)
 
 
@@ -84,8 +64,8 @@ def standardize_features(x_train, x_test):
     scaled_x_test = scaler.transform(x_test)
 
     # Create a new DataFrame with standardized features
-    standardized_train = pd.DataFrame(scaled_x_train, columns=x_train.columns)
-    standardized_test = pd.DataFrame(scaled_x_test, columns=x_test.columns)
+    standardized_train = pd.DataFrame(scaled_x_train)
+    standardized_test = pd.DataFrame(scaled_x_test)
 
     return standardized_train, standardized_test
 

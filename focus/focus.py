@@ -391,7 +391,7 @@ class Focus:
                 class_0 = correct_class
                 class_1 = incorrect_class
             else:
-                raise ValueError
+                raise ValueError("The class should be either 0 or 1")
             class_labels = [class_0, class_1]
             prob_stacked = tf.stack(class_labels, axis=1)
         return prob_stacked
@@ -426,6 +426,8 @@ class Focus:
             weights = model.estimator_weights_
         elif isinstance(model, RandomForestClassifier):
             weights = np.full(len(model.estimators_), 1 / len(model.estimators_))
+        else:
+            raise ValueError("model object should be either AdaBoostClassifier or RandomForestClassifier")
 
         logits = sum(weight * tree for weight, tree in zip(weights, dt_prob_list))
 
