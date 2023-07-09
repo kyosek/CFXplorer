@@ -1,68 +1,26 @@
-import random
 import numpy as np
 import pytest
+from sklearn.datasets import make_classification
 from sklearn.ensemble import AdaBoostClassifier, RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
 import tensorflow as tf
 import pandas as pd
 from focus import Focus
 
-random.seed(42)
-np.random.seed(42)
 
+X, y = make_classification(n_samples=300, n_features=10, n_classes=2, random_state=42)
 
-@pytest.fixture
-def X():
-    data = []
+dt_model = DecisionTreeClassifier(random_state=42)
+dt_model.fit(X, y)
 
-    for _ in range(300):
-        # Generate random features
-        features = [random.random() for _ in range(10)]
-        data.append(features)
+ab_model = AdaBoostClassifier(random_state=42)
+ab_model.fit(X, y)
 
-    # Create a pandas DataFrame from the data
-    column_names = [f"feature_{i + 1}" for i in range(10)]
-    df = pd.DataFrame(data, columns=column_names)
-    return df
-
-
-@pytest.fixture
-def y():
-    targets = []
-
-    for _ in range(300):
-        # Generate random features
-        target = random.randint(0, 1)
-        targets.append(target)
-
-    # Create a pandas DataFrame from the data
-    df = pd.DataFrame(targets)
-    return df
-
-
-@pytest.fixture
-def dt_model(X, y):
-    model = DecisionTreeClassifier(random_state=42)
-    model.fit(X)
-    return model
-
-
-@pytest.fixture
-def ab_model(X, y):
-    model = AdaBoostClassifier(random_state=42)
-    model.fit(X, y)
-    return model
-
-
-@pytest.fixture
-def rf_model(X, y):
-    model = RandomForestClassifier(random_state=42)
-    model.fit(X, y)
-    return model
-
+rf_model = RandomForestClassifier(random_state=42)
+rf_model.fit(X, y)
 
 model_data = [
-    (DecisionTreeClassifier(random_state=42).fit(X, y), X),
+    (dt_model, X),
     (ab_model, X),
     (rf_model, X),
 ]
