@@ -1,14 +1,16 @@
-import numpy as np
-from focus import Focus
 import time
+
+import numpy as np
+import tensorflow as tf
 from utils import (
     generate_example_data,
-    train_decision_tree_model,
-    standardize_features,
-    prepare_plot_df,
     plot_pca,
+    prepare_plot_df,
+    standardize_features,
+    train_decision_tree_model,
 )
-import tensorflow as tf
+
+from focus import Focus
 
 
 def run_example():
@@ -21,7 +23,6 @@ def run_example():
     Returns:
         None: This function displays the plots but does not return any value.
     """
-
     start_time = time.time()
 
     X_train, X_test, y_train, y_test = generate_example_data(1000)

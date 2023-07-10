@@ -1,0 +1,5 @@
+name: focus
+dependencies:
+  - tensorflow
+  - numpy
+  - scikit-learn

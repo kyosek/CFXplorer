@@ -1,10 +1,10 @@
 import pytest
+import tensorflow as tf
 from sklearn.datasets import make_classification
 from sklearn.ensemble import AdaBoostClassifier, RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
-import tensorflow as tf
-from focus import Focus
 
+from focus import Focus
 
 x_train, y_train = make_classification(
     n_samples=200, n_features=10, n_classes=2, random_state=42
@@ -65,9 +65,13 @@ def test_prepare_features_by_perturb_direction(model, X):
 
 
 @pytest.mark.parametrize(
-    "model, x_test, x_train, optimizer, distance_function, hyperparameter_tuning", focus_model_data
+    "model, x_test, x_train, optimizer, distance_function, hyperparameter_tuning",
+    focus_model_data,
 )
-def test_generate(model, x_test, x_train, optimizer, distance_function, hyperparameter_tuning):
+def test_generate(
+    model, x_test, x_train, optimizer, distance_function, hyperparameter_tuning
+):
+    """Test `generate` method by using multiple combinations of different parameters"""
     focus = Focus(
         num_iter=2,
         optimizer=optimizer,
@@ -75,7 +79,9 @@ def test_generate(model, x_test, x_train, optimizer, distance_function, hyperpar
         hyperparameter_tuning=hyperparameter_tuning,
     )
     if hyperparameter_tuning:
-        best_perturb, unchanged_ever, best_distance = focus.generate(model, x_test, x_train)
+        best_perturb, unchanged_ever, best_distance = focus.generate(
+            model, x_test, x_train
+        )
 
         assert best_perturb.all() != x_test.all()
         assert isinstance(unchanged_ever, int)

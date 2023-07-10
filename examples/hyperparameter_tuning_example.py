@@ -1,11 +1,8 @@
 import optuna
 import tensorflow as tf
+from utils import generate_example_data, standardize_features, train_decision_tree_model
+
 from focus import Focus
-from utils import (
-    generate_example_data,
-    train_decision_tree_model,
-    standardize_features,
-)
 
 
 def objective(trial):
@@ -15,13 +12,15 @@ def objective(trial):
     Mean distance and number of unchanged instances are used for the evaluation.
 
     Args:
-    trial (optuna.Trial): Object that contains information about the current trial, including hyperparameters.
+    trial (optuna.Trial): Object that contains information about the current trial,
+        including hyperparameters.
 
     Returns:
     Mean CFE distance + number of unchanged instances squared -
     This is the objective function for hyperparameter optimization
 
-    * Note: typically we want to minimise a number of unchanged first, so penalising the score by having squared number.
+    * Note: typically we want to minimise a number of unchanged first,
+        so penalising the score by having squared number.
     Also, to not distort this objective, having the mean distance divided by 100.
     """
     X_train, X_test, y_train, y_test = generate_example_data(1000)
