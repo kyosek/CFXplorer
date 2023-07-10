@@ -4,7 +4,7 @@ FOCUS: Flexible Optimizable Counterfactual Explanations for Tree Ensembles
 **Deployment & Documentation & Stats & License**
 
 .. image:: https://img.shields.io/pypi/v/focus.svg?color=brightgreen
-   :target: https://pypi.org/project/focus/
+   :target: https://pypi.org/project/focus-cfe/
    :alt: PyPI version
 
 .. image:: https://coveralls.io/repos/github/kyosek/focus-cfe/badge.svg
@@ -39,9 +39,9 @@ It is recommended to use **pip** or **conda** for installation. Please make sure
 
 .. code-block:: bash
 
-   pip install focus            # normal install
-   pip install --upgrade focus  # or update if needed
+   pip install focus-cfe            # normal install
+   pip install --upgrade focus-cfe  # or update if needed
 
 .. code-block:: bash
 
-   conda install -c conda-forge focus
+   conda install -c conda-forge focus-cfe

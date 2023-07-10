@@ -1,7 +1,5 @@
 import time
 
-import numpy as np
-import tensorflow as tf
 from utils import (
     generate_example_data,
     plot_pca,
@@ -32,13 +30,12 @@ def run_example():
     focus = Focus(
         num_iter=1000,
         distance_function="cosine",
-        optimizer=tf.keras.optimizers.RMSprop(),
     )
 
     perturbed_feats = focus.generate(model, X_test, X_train)
 
     end_time = time.time()
-    print("Finished!! ~{} min".format(np.round((end_time - start_time) / 60)))
+    print("Finished!! ~{} min".format(round((end_time - start_time) / 60)))
 
     plot_df, focus_plot_df = prepare_plot_df(model, X_test, perturbed_feats)
     plot_pca(plot_df, focus_plot_df)
