@@ -64,10 +64,10 @@ class Focus:
     Examples
     --------
     # Initialize FOCUS with default parameters
-    focus = Focus()
+    focus-cfe = Focus()
 
     # Generate counterfactual explanations
-    cfe_features = focus.generate(model, X)
+    cfe_features = focus-cfe.generate(model, X)
 
     """
 

@@ -3,16 +3,16 @@ FOCUS: Flexible Optimizable Counterfactual Explanations for Tree Ensembles
 
 **Deployment & Documentation & Stats & License**
 
-.. image:: https://img.shields.io/pypi/v/pyod.svg?color=brightgreen
+.. image:: https://img.shields.io/pypi/v/focus.svg?color=brightgreen
    :target: https://pypi.org/project/focus/
    :alt: PyPI version
 
-.. image:: https://coveralls.io/repos/github/kyosek/focus/badge.svg
-   :target: https://coveralls.io/github/kyosek/focus
+.. image:: https://coveralls.io/repos/github/kyosek/focus-cfe/badge.svg
+   :target: https://coveralls.io/github/kyosek/focus-cfe
    :alt: Coverage Status
 
 .. image:: https://api.codeclimate.com/v1/badges/bdc3d8d0454274c753c4/maintainability
-   :target: https://codeclimate.com/github/kyosek/focus/maintainability
+   :target: https://codeclimate.com/github/kyosek/focus-cfe/maintainability
    :alt: Maintainability
 
 -----
