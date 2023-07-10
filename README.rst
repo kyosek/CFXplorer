@@ -3,7 +3,7 @@ FOCUS: Flexible Optimizable Counterfactual Explanations for Tree Ensembles
 
 **Deployment & Documentation & Stats & License**
 
-.. image:: https://img.shields.io/pypi/v/focus.svg?color=brightgreen
+.. image:: https://img.shields.io/pypi/v/focus-cfe.svg?color=brightgreen
    :target: https://pypi.org/project/focus-cfe/
    :alt: PyPI version
 
