@@ -131,35 +131,20 @@ class Focus:
             trainable=True,
             name="perturbed_features",
         )
-        n_examples = len(X)
-        distance_weight: np.ndarray = np.full(n_examples, self.distance_weight)
+        n_rows = len(X)
+        distance_weight: np.ndarray = np.full(n_rows, self.distance_weight)
         to_optimize = [perturbed]
-        mask_vector = np.ones(n_examples)
+        mask_vector = np.ones(n_rows)
         best_perturb = np.zeros(perturbed.shape)
-        best_distance = np.full(n_examples, np.inf)
+        best_distance = np.full(n_rows, np.inf)
         predictions = tf.constant(model.predict(X))
-        example_index = tf.constant(np.arange(n_examples, dtype=int))
-        example_pred_class_index = tf.stack((example_index, predictions), axis=1)
 
         for i in range(1, self.num_iter + 1):
             if self.verbose != 0:
                 print(f"iteration {i}")
 
-            grad = Focus.compute_gradient(
-                model,
-                X,
-                predictions,
-                to_optimize,
-                example_pred_class_index,
-                mask_vector,
-                perturbed,
-                distance_weight,
-                x_train,
-                self.distance_function,
-                self.sigma,
-                self.temperature,
-                self.optimizer,
-            )
+            grad = Focus.compute_gradient(model, X, predictions, to_optimize, mask_vector, perturbed, distance_weight,
+                                          x_train, self.distance_function, self.sigma, self.temperature, self.optimizer)
 
             self.optimizer.apply_gradients(
                 zip(grad, to_optimize),
@@ -240,7 +225,6 @@ class Focus:
         X,
         predictions,
         to_optimize,
-        example_pred_class_index,
         mask_vector,
         perturbed,
         distance_weight,
@@ -261,6 +245,9 @@ class Focus:
         The loss function is defined as a combination of hinge loss, approximate probability, and a distance term.
         The gradient is then calculated with respect to the variables specified in the `to_optimize` list.
         """
+        prediction_class_index = tf.stack(
+            (tf.constant(np.arange(len(X), dtype=int)), predictions), axis=1
+        )
 
         with tf.GradientTape(persistent=True) as tape:
             hinge_loss = Focus.filter_hinge_loss(
@@ -271,7 +258,7 @@ class Focus:
                 temperature,
                 model,
             )
-            approx_prob = tf.gather_nd(hinge_loss, example_pred_class_index)
+            approx_prob = tf.gather_nd(hinge_loss, prediction_class_index)
             distance = calculate_distance(distance_function, perturbed, X, x_train)
             hinge_approx_prob = tf.cast(mask_vector * approx_prob, tf.float32)
             loss = tf.reduce_mean(
