@@ -223,7 +223,7 @@ class Focus:
         - "negative": Returns the subset of input data where the model predicts the label as 1.
         - "both": Returns the input data as is without any filtering.
 
-        Note that the `model` object should have a predict method that returns the predicted labels.
+        Note that the `model` object should have a `predict` method that returns the predicted labels.
         """
         if direction == "positive":
             return X[model.predict(X) == 0]
