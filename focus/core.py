@@ -137,7 +137,7 @@ class Focus:
         mask_vector = np.ones(n_examples)
         best_perturb = np.zeros(perturbed.shape)
         best_distance = np.full(n_examples, np.inf)
-        predictions = tf.constant(model.predict(X), dtype=tf.int64)
+        predictions = tf.constant(model.predict(X))
         example_index = tf.constant(np.arange(n_examples, dtype=int))
         example_pred_class_index = tf.stack((example_index, predictions), axis=1)
 
