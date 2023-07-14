@@ -32,12 +32,15 @@ FOCUS generates optimal distance counterfactual explanations to the original dat
     pertubed = focus.generate(tree_model, X)
 
 More comprehensive example can be found `here <https://github.com/kyosek/focus/blob/master/examples/focus_example.py>`_.
+Below demonstrates the comparison of before and after FOCUS was applied to feature set from the above example.
 
 .. image:: docs/plot.png
     :width: 200px
     :height: 100px
     :scale: 50 %
     :alt: Before and After FOCUS was applied to the features from above example.
+
+Currently FOCUS can be applied to scikit-learn `DecisionTreeClassifier`, `RandomForestClassifier` and `AdaBoostClassifier`.
 
 Installation
 ^^^^^^^^^^^^
