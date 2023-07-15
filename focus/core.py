@@ -24,7 +24,7 @@ class Focus:
     Parameters
     ----------
     distance_function: str, optional (default="euclidean")
-        Distance function - one of
+        Distance function - one of followings;
             - "euclidean"
             - "cosine"
             - "l1"
@@ -63,8 +63,7 @@ class Focus:
     ---------
     Lucic, A., Oosterhuis, H., Haned, H., & de Rijke, M. (2022, June).
     FOCUS: Flexible optimizable counterfactual explanations for tree ensembles.
-    In Proceedings of the AAAI Conference on Artificial Intelligence (Vol. 36,
-    No. 5, pp. 5313-5322).
+    In Proceedings of the AAAI Conference on Artificial Intelligence (Vol. 36, No. 5, pp. 5313-5322).
 
     Examples
     --------
@@ -125,11 +124,9 @@ class Focus:
         This method generates counterfactual explanations for the
         predictions made by a tree-based model.
         It uses the gradient descent method to optimize the input features
-        based on a combination of hinge loss, approximate probability and
-        a distance term.
+        based on a combination of hinge loss, approximate probability and a distance term.
         The `model` should be an instance of a tree-based model,
-        such as DecisionTreeClassifier, RandomForestClassifier or
-        AdaBoostClassifier.
+        such as DecisionTreeClassifier, RandomForestClassifier or AdaBoostClassifier.
         The `X` parameter represents the input features for which
         counterfactual explanations are desired.
         The `x_train` parameter is an optional argument that
