@@ -24,7 +24,11 @@ class Focus:
     Parameters
     ----------
     distance_function: str, optional (default="euclidean")
-        Distance function - one of "euclidean", "cosine", "l1" and "mahalabobis"
+        Distance function - one of followings;
+            - "euclidean"
+            - "cosine"
+            - "l1"
+            - "mahalabobis"
 
     optimizer: Keras optimizer, optional (default=tf.keras.optimizers.Adam())
         Optimizer for gradient decent
@@ -97,32 +101,41 @@ class Focus:
 
     def generate(self, model, X, x_train=None):
         """
-        Generate counterfactual explanations for the predictions from a tree-based model.
+        Generate counterfactual explanations for the
+        predictions from a tree-based model.
 
         Args:
         model: model object
-            The machine learning model (e.g., DecisionTreeClassifier, RandomForestClassifier, AdaBoostClassifier)
+            The machine learning model
+                - DecisionTreeClassifier
+                - RandomForestClassifier
+                - AdaBoostClassifier
 
         X: numpy array
             The input feature to generate CFE
 
         x_train: numpy array, optional (default=None)
-            The training data features - This will be used to calculate Mahalanobis distances
+            The training data features
+                - This will be used to calculate Mahalanobis distances
 
         Returns:
             The best perturbed features
 
-        This method generates counterfactual explanations for the predictions made by a tree-based model.
-        It uses the gradient descent method to optimize the input features based on a combination of
-        hinge loss, approximate probability, and a distance term.
-        The `model` should be an instance of a tree-based model, such as DecisionTreeClassifier,
-        RandomForestClassifier, or AdaBoostClassifier.
-        The `X` parameter represents the input features for which counterfactual explanations are desired.
-        The `x_train` parameter is an optional argument that represents the training data features used
+        This method generates counterfactual explanations for the
+        predictions made by a tree-based model.
+        It uses the gradient descent method to optimize the input features
+        based on a combination of hinge loss, approximate probability and a distance term.
+        The `model` should be an instance of a tree-based model,
+        such as DecisionTreeClassifier, RandomForestClassifier or AdaBoostClassifier.
+        The `X` parameter represents the input features for which
+        counterfactual explanations are desired.
+        The `x_train` parameter is an optional argument that
+        represents the training data features used
         to compute the approximate probability.
 
         The method returns the best perturbed features,
-        which represent the optimized input features that result in counterfactual explanations.
+        which represent the optimized input features that
+        result in counterfactual explanations.
         """
         X = Focus.prepare_features_by_perturb_direction(model, X, self.direction)
 
@@ -143,8 +156,20 @@ class Focus:
             if self.verbose != 0:
                 print(f"iteration {i}")
 
-            grad = Focus.compute_gradient(model, X, predictions, to_optimize, mask_vector, perturbed, distance_weight,
-                                          x_train, self.distance_function, self.sigma, self.temperature, self.optimizer)
+            grad = Focus.compute_gradient(
+                model,
+                X,
+                predictions,
+                to_optimize,
+                mask_vector,
+                perturbed,
+                distance_weight,
+                x_train,
+                self.distance_function,
+                self.sigma,
+                self.temperature,
+                self.optimizer,
+            )
 
             self.optimizer.apply_gradients(
                 zip(grad, to_optimize),
@@ -177,10 +202,12 @@ class Focus:
 
         else:
             print(
-                f"The number of rows that are unchanged ever is {len(best_distance[best_distance == np.inf])}"
+                f"The number of rows that are unchanged ever is "
+                f"{len(best_distance[best_distance == np.inf])}"
             )
             print(
-                f"The mean distance is {np.mean(best_distance[best_distance != np.inf])}"
+                f"The mean distance is "
+                f"{np.mean(best_distance[best_distance != np.inf])}"
             )
 
             return best_perturb
@@ -193,7 +220,8 @@ class Focus:
         Args:
             model (object): The model used for predicting the labels.
             X (np.ndarray): The input data to be prepared based on the perturbation direction.
-            direction (str): The perturbation direction to consider. Available options: "positive", "negative", "both".
+            direction (str): The perturbation direction to consider.
+                                Available options: "positive", "negative", "both".
 
         Returns:
             np.ndarray: The prepared input data based on the perturbation direction.
@@ -202,13 +230,18 @@ class Focus:
             ValueError: If an invalid `direction` is provided.
 
         This method filters and prepares the input data `X` based on the perturbation direction
-        specified by the `direction` argument. It uses the provided `model` to predict the labels for the input data.
+        specified by the `direction` argument.
+        It uses the provided `model` to predict the labels for the input data.
         The available options for `direction` are:
-        - "positive": Returns the subset of input data where the model predicts the label as 0.
-        - "negative": Returns the subset of input data where the model predicts the label as 1.
-        - "both": Returns the input data as is without any filtering.
+        - "positive":
+            Returns the subset of input data where the model predicts the label as 0.
+        - "negative":
+            Returns the subset of input data where the model predicts the label as 1.
+        - "both":
+            Returns the input data as is without any filtering.
 
-        Note that the `model` object should have a `predict` method that returns the predicted labels.
+        Note that the `model` object should have a `predict` method
+        that returns the predicted labels.
         """
         if direction == "positive":
             return X[model.predict(X) == 0]

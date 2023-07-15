@@ -13,13 +13,19 @@ from focus import Focus
 
 def run_example():
     """
-    Runs an example workflow to showcase the usage of different functions and modules.
+    Runs an example workflow to showcase the
+    usage of different functions and modules.
 
-    This function generates example data, standardizes the features, trains a decision tree model,
-    performs perturbation using the FOCUS algorithm, and visualizes the results using PCA plots.
+    This function
+        - generates example data
+        - standardizes the features
+        - trains a decision tree model
+        - performs perturbation using the FOCUS algorithm
+        - visualizes the results using PCA plots
 
     Returns:
-        None: This function displays the plots but does not return any value.
+        None: This function displays the plots
+        but does not return any value.
     """
     start_time = time.time()
 
