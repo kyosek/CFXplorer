@@ -7,13 +7,37 @@ FOCUS: Flexible Optimizable Counterfactual Explanations for Tree Ensembles
    :target: https://pypi.org/project/focus-cfe/
    :alt: PyPI version
 
-.. image:: https://coveralls.io/repos/github/kyosek/focus-cfe/badge.svg
-   :target: https://coveralls.io/github/kyosek/focus-cfe
+.. image:: https://readthedocs.org/projects/focus-cfe/badge/?version=latest
+   :target: https://focus-cfe.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation status
+
+.. image:: https://img.shields.io/github/stars/kyosek/focus.svg
+   :target: https://github.com/kyosek/focus/stargazers
+   :alt: GitHub stars
+
+.. image:: https://img.shields.io/github/forks/kyosek/focus.svg?color=blue
+   :target: https://github.com/kyosek/focus/network
+   :alt: GitHub forks
+
+.. image:: https://pepy.tech/badge/focus-cfe
+   :target: https://pepy.tech/project/focus-cfe
+   :alt: Downloads
+
+.. image:: https://coveralls.io/repos/github/kyosek/focus/badge.svg
+   :target: https://coveralls.io/github/kyosek/focus
    :alt: Coverage Status
 
 .. image:: https://api.codeclimate.com/v1/badges/93840d29606abb212051/maintainability
    :target: https://codeclimate.com/github/kyosek/focus-cfe/maintainability
    :alt: Maintainability
+
+.. image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit
+   :target: https://github.com/kyosek/focus-cfe
+   :alt: pre-commit
+
+.. image:: https://img.shields.io/github/license/kyosek/focus.svg
+   :target: https://github.com/kyosek/focus/blob/master/LICENSE
+   :alt: License
 
 -----
 
