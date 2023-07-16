@@ -18,4 +18,4 @@ generating counterfactual explanations for a tree-based model
 # Dev branch marker is: 'X.Y.dev' or 'X.Y.devN' where N is an integer.
 # 'X.Y.dev0' is the canonical version of 'X.Y.dev'
 #
-__version__ = "0.0.dev"  # pragma: no cover
+__version__ = "0.0.dev2"  # pragma: no cover

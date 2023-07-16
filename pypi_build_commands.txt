@@ -3,12 +3,6 @@
 python setup.py sdist
 twine check dist/*
 
-# docstring check
-pytest --doctest-modules pyod/
-
-twine upload --repository pypitest dist/*
-# https://test.pypi.org/project/pyod/
-
 twine upload dist/*
 
 https://pypi.org/project/focus-cfe
