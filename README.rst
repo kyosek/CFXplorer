@@ -23,9 +23,8 @@ FOCUS: Flexible Optimizable Counterfactual Explanations for Tree Ensembles
    :target: https://pepy.tech/project/focus-cfe
    :alt: Downloads
 
-.. image:: https://coveralls.io/repos/github/kyosek/focus/badge.svg
-   :target: https://coveralls.io/github/kyosek/focus
-   :alt: Coverage Status
+.. image:: https://codecov.io/gh/kyosek/focus/branch/main/graph/badge.svg?token=0688f118-bc2c-48e8-94ec-4783aec8725e
+.. :target: https://codecov.io/gh/kyosek/focus
 
 .. image:: https://api.codeclimate.com/v1/badges/93840d29606abb212051/maintainability
    :target: https://codeclimate.com/github/kyosek/focus-cfe/maintainability
@@ -68,11 +67,11 @@ FOCUS generates optimal distance counterfactual explanations to the original dat
     :scale: 50 %
     :alt: Before and After FOCUS was applied to the features from above example.
 
-**Note**\:
+**Limitations**\:
 
-Currently FOCUS can be applied to scikit-learn `DecisionTreeClassifier`, `RandomForestClassifier` and `AdaBoostClassifier`.
+- Currently, FOCUS can only be applied to scikit-learn `DecisionTreeClassifier`, `RandomForestClassifier` and `AdaBoostClassifier`.
+- While categorical features may be included in the feature set, it is important to note that the interpretation of changes in categorical features, such as transitioning from age 40 to 20, may not provide meaningful insights.
 
-Installation
 ^^^^^^^^^^^^
 
 It is recommended to use **pip** or **conda** for installation. Please make sure
