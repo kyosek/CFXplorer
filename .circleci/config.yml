@@ -39,12 +39,6 @@ jobs:
           command:
             pip install pytest
             pytest
-  run-codecov:
-    steps:
-      - run:
-          name: Run code coverage check
-          command:
-            codecov/upload
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
@@ -52,4 +46,5 @@ workflows:
   tests:
     jobs:
       - build-and-test
-      - run-codecov
+      - checkout
+      - codecov/upload
