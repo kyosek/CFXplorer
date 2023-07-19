@@ -8,7 +8,7 @@ orbs:
   codecov: codecov/codecov@3.2.4
   # The python orb contains a set of prepackaged CircleCI configuration you can use repeatedly in your configuration files
   # Orb commands and jobs help you with common scripting around a language/tool
-  # so you dont have to copy and paste it everywhere.
+  # so you don't have to copy and paste it everywhere.
   # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/python
   python: circleci/python@1.5.0
 
@@ -39,6 +39,12 @@ jobs:
           command:
             pip install pytest
             pytest
+  run-codecov:
+    steps:
+      - run:
+          name: Run code coverage check
+          command:
+            codecov/upload
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
@@ -46,4 +52,4 @@ workflows:
   tests:
     jobs:
       - build-and-test
-      - codecov/upload
+      - run-codecov
