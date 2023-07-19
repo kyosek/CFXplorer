@@ -47,4 +47,3 @@ workflows:
   tests:
     jobs:
       - build-and-test
-      - run-codecov
