@@ -39,9 +39,7 @@ jobs:
           command:
             pip install pytest
             pytest
-  run-codecov:
-    jobs:
-      - codecov/upload
+            codecov/upload
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
