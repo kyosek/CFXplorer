@@ -1,25 +1,21 @@
-comment: false
-
-coverage:
-  status:
-    project:
-      default:
-        # Commits pushed to main should not make the overall
-        # project coverage decrease by more than 1%:
-        target: auto
-        threshold: 1%
-    patch:
-      default:
-        # Be tolerant on slight code coverage diff on PRs to limit
-        # noisy red coverage status on github PRs.
-        # Note: The coverage stats are still uploaded
-        # to codecov so that PR reviewers can see uncovered lines
-        target: auto
-        threshold: 1%
-
 codecov:
-  notify:
-    # Prevent coverage status to upload multiple times for parallel and long
-    # running CI pipelines. This configuration is particularly useful on PRs
-    # to avoid confusion.
-    after_n_builds: 6
+  require_ci_to_pass: yes
+  coverage:
+    precision: 2
+    round: down
+    range: "70...100"
+  status:
+    project: yes
+    patch: yes
+    changes: no
+  parsers:
+    gcov:
+      branch_detection:
+        conditional: yes
+        loop: yes
+        method: no
+        macro: no
+  comment:
+    layout: "reach,diff,flags,tree"
+    behavior: default
+    require_changes: no
