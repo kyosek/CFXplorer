@@ -47,3 +47,5 @@ workflows:
   tests:
     jobs:
       - build-and-test
+      - checkout
+      - codecov/upload
