@@ -15,12 +15,12 @@ FOCUS: Flexible Optimizable Counterfactual Explanations for Tree Ensembles
    :target: https://pepy.tech/project/focus-cfe
    :alt: Downloads
 
+.. image:: https://codecov.io/gh/kyosek/focus/branch/master/graph/badge.svg?token=G5I7TJR0JQ
+    :target: https://codecov.io/gh/kyosek/focus
+
 .. image:: https://dl.circleci.com/status-badge/img/gh/kyosek/focus/tree/master.svg?style=svg
     :target: https://dl.circleci.com/status-badge/redirect/gh/kyosek/focus/tree/master
     :alt: Circle CI
-
-.. image:: https://codecov.io/gh/kyosek/focus/branch/main/graph/badge.svg?token=0688f118-bc2c-48e8-94ec-4783aec8725e
-    :target: https://codecov.io/gh/kyosek/focus
 
 .. image:: https://api.codeclimate.com/v1/badges/93840d29606abb212051/maintainability
    :target: https://codeclimate.com/github/kyosek/focus-cfe/maintainability
