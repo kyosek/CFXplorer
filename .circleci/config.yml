@@ -39,7 +39,6 @@ jobs:
           command:
             pip install pytest
             pytest
-            codecov/upload
 
   run-with-node:
     docker:
@@ -48,8 +47,9 @@ jobs:
       - checkout
       - run:
           name: install and run tests
-          command: |
-            yarn install && yarn test
+          command:
+            pip install pytest
+            pytest
       - codecov/upload
 
 # Invoke jobs via workflows
