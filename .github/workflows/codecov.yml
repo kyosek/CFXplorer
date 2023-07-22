@@ -30,7 +30,7 @@ jobs:
 
       # Run tests and generate coverage report
       - name: Run Tests and Generate Coverage
-        run: pytest --cov=focus tests/
+        run: pytest
 
       # Upload coverage data to Codecov
       - name: Upload Coverage to Codecov
