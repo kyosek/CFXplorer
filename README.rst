@@ -11,14 +11,6 @@ FOCUS: Flexible Optimizable Counterfactual Explanations for Tree Ensembles
    :target: https://focus-cfe.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation status
 
-.. image:: https://img.shields.io/github/stars/kyosek/focus.svg
-   :target: https://github.com/kyosek/focus/stargazers
-   :alt: GitHub stars
-
-.. image:: https://img.shields.io/github/forks/kyosek/focus.svg?color=blue
-   :target: https://github.com/kyosek/focus/network
-   :alt: GitHub forks
-
 .. image:: https://pepy.tech/badge/focus-cfe
    :target: https://pepy.tech/project/focus-cfe
    :alt: Downloads

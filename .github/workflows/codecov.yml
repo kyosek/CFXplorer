@@ -1,12 +1,7 @@
 name: Codecov
 
 on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+  [push, pull_request]:
 
 jobs:
   build:
@@ -27,10 +22,11 @@ jobs:
         run: |
           pip install -r requirements.txt
           pip install pytest
+          pip install coverage
 
       # Run tests and generate coverage report
       - name: Run Tests and Generate Coverage
-        run: pytest
+        run: coverage run -m pytest
 
       # Upload coverage data to Codecov
       - name: Upload Coverage to Codecov

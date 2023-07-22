@@ -43,6 +43,6 @@ jobs:
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
-  tests:
+  Circle-CI-test:
     jobs:
       - build-and-test
