@@ -1,0 +1,37 @@
+name: Codecov
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Set up Python (you can adjust this for other languages)
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      # Install dependencies
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      # Run tests and generate coverage report
+      - name: Run Tests and Generate Coverage
+        run: pytest --cov=my_package tests/
+
+      # Upload coverage data to Codecov
+      - name: Upload Coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
