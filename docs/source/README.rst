@@ -57,11 +57,12 @@ FOCUS generates optimal distance counterfactual explanations to the original dat
 - Another example in a kaggle notebook can be found `here <https://www.kaggle.com/code/kyosukemorita/focus-cfe-example>`_.
 - Below demonstrates the comparison of before and after FOCUS was applied to feature set from the above example.
 
-.. image:: docs/plot.png
-    :width: 200px
-    :height: 100px
-    :scale: 50 %
+.. image:: https://raw.githubusercontent.com/kyosek/focus/master/docs/plot.png
+    :width: 800px
+    :height: 400px
+    :scale: 100 %
     :alt: Before and After FOCUS was applied to the features from above example.
+
 
 **Limitations**\:
 
