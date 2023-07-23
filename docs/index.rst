@@ -14,6 +14,5 @@ Contents
 
    Home <self>
    focus
-   modules
    api
    usage
