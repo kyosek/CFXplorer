@@ -2,5 +2,5 @@
 API
 =========
 
-.. autoclass:: focus.Focus
+.. autoclass:: focus.core.Focus
     :members:
