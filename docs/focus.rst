@@ -15,7 +15,7 @@ Submodules
 focus.core module
 -----------------
 
-.. automodule:: focus.core
+.. automodule:: focus
    :members:
    :undoc-members:
    :show-inheritance:

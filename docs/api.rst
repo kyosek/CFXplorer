@@ -1,9 +1,16 @@
-=========
-API
-=========
+=============
+API Reference
+=============
 
-.. autoclass:: focus.core.Focus
+.. toctree::
+
+    focus
+
+Module contents
+---------------
+
+.. automodule:: focus
     :members:
-    :undoc-members:
+    :undoc-members: tests
     :show-inheritance:
     :inherited-members:
