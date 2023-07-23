@@ -14,11 +14,14 @@ Installation using pip:
    (.venv) $ pip install focus-cfe
 
 
-Example:
+Example
+-------
 
 .. code-block:: python
 
     from focus import Focus
+
+
     # Initialize Focus instance with default values
     focus = Focus()
     # Generate counterfactual explanations for given tree model and features
