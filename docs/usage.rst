@@ -16,7 +16,7 @@ Installation using pip:
 
 Example
 -------
-For given `model` and feature set `X`, `Focus` generates perturbed `X'`.
+For given tree-based model - `tree_model` and feature set - `X`, `Focus` generates perturbed feature set - `X'`.
 
 .. code-block:: python
 
