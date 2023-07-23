@@ -12,6 +12,6 @@ Contents
 .. toctree::
 
    Home <self>
-   ../modules
+   modules
    api
    usage

@@ -16,6 +16,7 @@ Installation using pip:
 
 Example
 -------
+For given `model` and feature set `X`, `Focus` generates perturbed `X'`.
 
 .. code-block:: python
 
