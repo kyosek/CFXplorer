@@ -14,7 +14,7 @@ focus-cfe documentation
 
 **Links**: |
 `GitHub repository <https://github.com/kyosek/focus>`__ |
-`PyPl <https://pypi.org/project/focus-cfe/>`__ |
+`PyPI <https://pypi.org/project/focus-cfe/>`__ |
 
 =====================================
 
