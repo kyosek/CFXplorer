@@ -2,14 +2,10 @@
 API Reference
 =============
 
-.. toctree::
+focus.core module
+-----------------
 
-    focus
-
-Module contents
----------------
-
-.. automodule:: focus
+.. automodule:: focus.core
     :members:
     :undoc-members: tests
     :show-inheritance:
