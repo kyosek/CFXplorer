@@ -2,3 +2,5 @@
 ========================
 
 .. automodule:: focus.core
+
+.. automodule:: focus.utils
