@@ -16,5 +16,5 @@ Contents
 
 .. toctree::
 
-   :doc: `api`
-   :doc: `usage`
+   api
+   usage
