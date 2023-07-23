@@ -1,8 +1,20 @@
-``Usage``
+========================
+Usage
 ========================
 
-.. automodule:: usage
-   :members:
+.. _installation:
+
+Installation
+------------
+
+Installation using pip:
+
+.. code-block:: console
+
+   (.venv) $ pip install focus-cfe
+
+
+Example:
 
 .. code-block:: python
 

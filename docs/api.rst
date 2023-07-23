@@ -1,6 +1,8 @@
-``API reference``
-========================
+=========
+API
+=========
 
-.. automodule:: focus.core
+.. currentmodule:: focus.Focus
 
-.. automodule:: focus.utils
+.. autoclass:: focus.Focus
+    :members:
