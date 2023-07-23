@@ -1,4 +1,4 @@
-``focus-cfe.utils`` Module
+``focus-cfe.utils``
 ========================
 
 .. automodule:: focus-cfe.utils
