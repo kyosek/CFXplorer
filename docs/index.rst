@@ -13,5 +13,7 @@ Contents
    :maxdepth: 2
 
    Home <self>
+   focus
+   modules
    api
    usage
