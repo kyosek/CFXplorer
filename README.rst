@@ -62,7 +62,7 @@ FOCUS generates optimal distance counterfactual explanations of the original dat
     :height: 400px
     :scale: 100 %
     :alt: Before and After FOCUS was applied to the features from above example.
-
+|
 **Limitations**\:
 
 - Currently, FOCUS can only be applied to scikit-learn `DecisionTreeClassifier`, `RandomForestClassifier` and `AdaBoostClassifier`.

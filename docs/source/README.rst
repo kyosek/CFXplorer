@@ -50,7 +50,6 @@ FOCUS generates optimal distance counterfactual explanations of the original dat
     # Generate counterfactual explanations for given tree model and features
     pertubed = focus.generate(tree_model, X)
 
-
 **Examples**\:
 
 - More comprehensive example can be found in the `examples folder <https://github.com/kyosek/focus/blob/master/examples/focus_example.py>`_.
@@ -62,6 +61,8 @@ FOCUS generates optimal distance counterfactual explanations of the original dat
     :height: 400px
     :scale: 100 %
     :alt: Before and After FOCUS was applied to the features from above example.
+
+|
 
 **Limitations**\:
 

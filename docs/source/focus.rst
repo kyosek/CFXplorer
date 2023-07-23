@@ -28,14 +28,6 @@ focus.utils module
    :undoc-members:
    :show-inheritance:
 
-focus.version module
---------------------
-
-.. automodule:: focus.version
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 Module contents
 ---------------
 

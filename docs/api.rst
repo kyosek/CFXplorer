@@ -1,5 +1,4 @@
-``focus-cfe.core``
+``API reference``
 ========================
 
-.. automodule:: focus-cfe.core
-   :members:
+.. automodule:: focus.core
