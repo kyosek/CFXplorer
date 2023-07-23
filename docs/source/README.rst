@@ -38,7 +38,7 @@ FOCUS: Flexible Optimizable Counterfactual Explanations for Tree Ensembles
 
 This library is an implementation of `FOCUS: Flexible Optimizable Counterfactual Explanations for Tree Ensembles <https://arxiv.org/abs/1911.12199>`_.
 
-FOCUS generates optimal distance counterfactual explanations to the original data for all the instances in tree‐based machine learning models.
+FOCUS generates optimal distance counterfactual explanations of the original data for all the instances in tree‐based machine learning models.
 
 **FOCUS counterfactual explanation generation with 3 Lines of Code**\ :
 
@@ -54,15 +54,14 @@ FOCUS generates optimal distance counterfactual explanations to the original dat
 **Examples**\:
 
 - More comprehensive example can be found in the `examples folder <https://github.com/kyosek/focus/blob/master/examples/focus_example.py>`_.
-- Another example in a kaggle notebook can be found `here <https://www.kaggle.com/code/kyosukemorita/focus-cfe-example>`_.
-- Below demonstrates the comparison of before and after FOCUS was applied to feature set from the above example.
+- Kaggle notebook example can be found `here <https://www.kaggle.com/code/kyosukemorita/focus-cfe-example>`_.
+- Below is demonstrated a comparison of before and after FOCUS is applied to feature set from the example given above.
 
 .. image:: https://raw.githubusercontent.com/kyosek/focus/master/docs/plot.png
     :width: 800px
     :height: 400px
     :scale: 100 %
     :alt: Before and After FOCUS was applied to the features from above example.
-
 
 **Limitations**\:
 
