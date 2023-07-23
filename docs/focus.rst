@@ -1,13 +1,21 @@
 focus package
 =============
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   focus.tests
+
 Submodules
 ----------
 
 focus.core module
 -----------------
 
-.. automodule:: core
+.. automodule:: focus.core
    :members:
    :undoc-members:
    :show-inheritance:
