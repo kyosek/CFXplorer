@@ -106,8 +106,9 @@ Contributing
 ------------
 
 If you would like to contribute to the project, please refer to;
-    - `ISSUE_TEMPLATE <https://github.com/kyosek/focus/tree/master/.github/ISSUE_TEMPLATE>`_ for raising an issue
-    - `PULL_REQUEST_TEMPLATE.md <https://github.com/kyosek/focus/blob/master/.github/PULL_REQUEST_TEMPLATE.md>`_ for raising a PR
+
+- `ISSUE_TEMPLATE <https://github.com/kyosek/focus/tree/master/.github/ISSUE_TEMPLATE>`_ for raising an issue
+- `PULL_REQUEST_TEMPLATE.md <https://github.com/kyosek/focus/blob/master/.github/PULL_REQUEST_TEMPLATE.md>`_ for raising a PR
 
 License
 -------
