@@ -2,7 +2,7 @@
 API Reference
 =============
 
-focus.core
+focus
 ----------
 
 .. automodule:: focus.core.Focus
@@ -12,7 +12,7 @@ focus.core
     :show-inheritance:
     :inherited-members:
 
-.. autofunction:: focus.core.calculate_distance
+.. autofunction:: focus.utils.calculate_distance
     :imported-members:
     :members:
     :undoc-members:
