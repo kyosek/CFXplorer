@@ -2,10 +2,7 @@
 API Reference
 =============
 
-focus
-----------
-
-.. automodule:: focus.core.Focus
+.. autoclass:: focus.core.Focus
     :members:
     :undoc-members:
     :show-inheritance:
