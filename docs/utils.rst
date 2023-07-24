@@ -1,11 +1,11 @@
-=============
-API Reference
-=============
+=====
+Utils
+=====
 
-focus.core
-----------
+focus.utils
+-----------
 
-.. automodule:: focus.core
+.. automodule:: focus.utils
     :imported-members:
     :members:
     :undoc-members:

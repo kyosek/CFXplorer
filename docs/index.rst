@@ -13,6 +13,6 @@ Contents
    :maxdepth: 2
 
    Home <self>
-   focus
-   api
    usage
+   api
+   utils
