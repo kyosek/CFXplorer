@@ -6,21 +6,21 @@ focus.core module
 -----------------
 
 .. automodule:: focus
-    :importend-members:
+    :imported-members:
     :members:
     :undoc-members:
     :show-inheritance:
     :inherited-members:
 
 .. automodule:: focus.core
-    :importend-members:
+    :imported-members:
     :members:
     :undoc-members:
     :show-inheritance:
     :inherited-members:
 
 .. automodule:: focus-cfe.focus.core
-    :importend-members:
+    :imported-members:
     :members:
     :undoc-members:
     :show-inheritance:
@@ -29,7 +29,7 @@ focus.core module
 focus.utils
 -----------
 .. automodule:: utils
-    :importend-members:
+    :imported-members:
     :members:
     :undoc-members:
     :show-inheritance:
