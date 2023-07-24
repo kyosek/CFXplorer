@@ -7,3 +7,4 @@ focus.core
 
 .. automodule:: focus.core
     :imported-members:
+    :members:
