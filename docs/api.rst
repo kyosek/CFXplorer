@@ -9,5 +9,3 @@ focus.core
     :imported-members:
     :members:
     :undoc-members:
-    :show-inheritance:
-    :inherited-members:
