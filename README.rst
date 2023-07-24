@@ -1,4 +1,4 @@
-FOCUS: Flexible Optimizable Counterfactual Explanations for Tree Ensembles
+Focus-cfe
 ==========================================================================
 
 **Deployment & Documentation & Stats & License**
@@ -34,11 +34,11 @@ FOCUS: Flexible Optimizable Counterfactual Explanations for Tree Ensembles
    :target: https://github.com/kyosek/focus/blob/master/LICENSE
    :alt: License
 
------
+---------
 
-This library is an implementation of `FOCUS: Flexible Optimizable Counterfactual Explanations for Tree Ensembles <https://arxiv.org/abs/1911.12199>`_.
+Focus-cfe generates optimal distance counterfactual explanations of the original data for the instances in tree‐based machine learning models.
 
-FOCUS generates optimal distance counterfactual explanations of the original data for all the instances in tree‐based machine learning models.
+This library is an implementation of `FOCUS: Flexible Optimizable Counterfactual Explanations for Tree Ensembles (Lucic, et at. 2022) <https://arxiv.org/abs/1911.12199>`_.
 
 Installation
 ------------
@@ -80,7 +80,7 @@ Usage
 Examples
 --------
 
-- More comprehensive example can be found in the `examples folder <https://github.com/kyosek/focus/blob/master/examples/focus_example.py>`_.
+- Comprehensive examples can be found in the `examples folder <https://github.com/kyosek/focus/blob/master/examples/focus_example.py>`_.
 - Kaggle notebook example can be found `here <https://www.kaggle.com/code/kyosukemorita/focus-cfe-example>`_.
 - Below is demonstrated a comparison of before and after FOCUS is applied to feature set from the example given above.
 
@@ -89,7 +89,6 @@ Examples
     :height: 400px
     :scale: 100 %
     :alt: Before and After FOCUS was applied to the features from above example.
-|
 
 Limitations
 -----------
@@ -100,10 +99,12 @@ Limitations
 
 Documentation
 -------------
+
 The documentation can be found `here <https://focus-cfe.readthedocs.io/en/latest/>`_.
 
 Contributing
 ------------
+
 If you would like to contribute to the project, please refer to;
     - `ISSUE_TEMPLATE <https://github.com/kyosek/focus/tree/master/.github/ISSUE_TEMPLATE>`_ for raising an issue
     - `PULL_REQUEST_TEMPLATE.md <https://github.com/kyosek/focus/blob/master/.github/PULL_REQUEST_TEMPLATE.md>`_ for raising a PR
