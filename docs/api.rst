@@ -5,9 +5,9 @@ API Reference
 focus.core module
 -----------------
 
-.. automodule:: Focus
+.. automodule:: focus.core
     :importend-members:
     :members:
-    :undoc-members: tests
+    :undoc-members:
     :show-inheritance:
     :inherited-members:
