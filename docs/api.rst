@@ -19,13 +19,6 @@ focus.core module
     :show-inheritance:
     :inherited-members:
 
-.. automodule:: focus-cfe.focus.core
-    :imported-members:
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-
 focus.utils
 -----------
 .. automodule:: utils
