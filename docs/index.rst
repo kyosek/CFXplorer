@@ -1,38 +1,17 @@
-.. focus-cfe documentation master file, created by
-   sphinx-quickstart on Mon Jul 10 23:27:26 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-.. module:: focus-cfe
+.. include:: ../README.rst
 
-***********************
-focus-cfe documentation
-***********************
-
-**Date**: |today| **Version**: |version|
-
-**GitHub Repository**: |
-`focus <https://github.com/kyosek/focus>`__ |
+**Links**: |
+`GitHub repository <https://github.com/kyosek/focus>`__ |
+`PyPI <https://pypi.org/project/focus-cfe/>`__ |
 
 =====================================
 
-.. automodule:: focus-cfe
-   :members:
-
---------------------------
-
-**Sub-Modules:**
+Contents
+--------
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
-   README
-   core
-   utils
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   Home <self>
+   usage
+   api

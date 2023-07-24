@@ -67,12 +67,12 @@ class Focus:
 
     Examples
     --------
-    # Initialize FOCUS with default parameters
+    - Initialize FOCUS with default parameters
+    - Generate counterfactual explanations
+
     focus-cfe = Focus()
 
-    # Generate counterfactual explanations
     cfe_features = focus-cfe.generate(model, X)
-
     """
 
     def __init__(
