@@ -12,7 +12,9 @@ focus
     :show-inheritance:
     :inherited-members:
 
-.. autofunction:: focus.utils.calculate_distance
+utils
+-----
+.. automodule:: focus.utils
     :imported-members:
     :members:
     :undoc-members:
