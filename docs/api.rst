@@ -11,3 +11,10 @@ focus.core module
     :undoc-members:
     :show-inheritance:
     :inherited-members:
+
+.. automodule:: utils
+    :importend-members:
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :inherited-members:
