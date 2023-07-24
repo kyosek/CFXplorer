@@ -40,36 +40,8 @@ This library is an implementation of `FOCUS: Flexible Optimizable Counterfactual
 
 FOCUS generates optimal distance counterfactual explanations of the original data for all the instances in tree‐based machine learning models.
 
-**FOCUS counterfactual explanation generation with 3 Lines of Code**\ :
-
-.. code-block:: python
-
-    from focus import Focus
-    # Initialize Focus instance with default values
-    focus = Focus()
-    # Generate counterfactual explanations for given tree model and features
-    pertubed = focus.generate(tree_model, X)
-
-
-**Examples**\:
-
-- More comprehensive example can be found in the `examples folder <https://github.com/kyosek/focus/blob/master/examples/focus_example.py>`_.
-- Kaggle notebook example can be found `here <https://www.kaggle.com/code/kyosukemorita/focus-cfe-example>`_.
-- Below is demonstrated a comparison of before and after FOCUS is applied to feature set from the example given above.
-
-.. image:: https://raw.githubusercontent.com/kyosek/focus/master/docs/plot.png
-    :width: 800px
-    :height: 400px
-    :scale: 100 %
-    :alt: Before and After FOCUS was applied to the features from above example.
-|
-**Limitations**\:
-
-- Currently, FOCUS can only be applied to scikit-learn `DecisionTreeClassifier`, `RandomForestClassifier` and `AdaBoostClassifier`.
-- While categorical features may be included in the feature set, it is important to note that the interpretation of changes in categorical features, such as transitioning from age 40 to 20, may not provide meaningful insights.
-- The input features should be scaled to the range of 0 and 1 before applying FOCUS. Therefore, it is necessary to transform the features prior to using FOCUS. However, this scaling process may introduce some additional complexity when interpreting the features after applying FOCUS.
-
-^^^^^^^^^^^^
+Installation
+------------
 
 It is recommended to use **pip** or **conda** for installation. Please make sure
 **the latest version** is installed:
@@ -82,3 +54,60 @@ It is recommended to use **pip** or **conda** for installation. Please make sure
 .. code-block:: bash
 
    conda install -c conda-forge focus-cfe
+
+Requirements
+------------
+
+- Python 3.6+
+- numpy>=1.19.1
+- tensorflow>=2.0.0
+- scikit-learn>=1.0.2
+
+Usage
+-----
+**FOCUS counterfactual explanation generation with 3 Lines of Code**\ :
+
+.. code-block:: python
+
+    from focus import Focus
+    # Initialize Focus instance with default values
+    focus = Focus()
+
+    # Generate counterfactual explanations for given tree model and features
+    pertubed = focus.generate(tree_model, X)
+
+
+Examples
+--------
+
+- More comprehensive example can be found in the `examples folder <https://github.com/kyosek/focus/blob/master/examples/focus_example.py>`_.
+- Kaggle notebook example can be found `here <https://www.kaggle.com/code/kyosukemorita/focus-cfe-example>`_.
+- Below is demonstrated a comparison of before and after FOCUS is applied to feature set from the example given above.
+
+.. image:: https://raw.githubusercontent.com/kyosek/focus/master/docs/plot.png
+    :width: 800px
+    :height: 400px
+    :scale: 100 %
+    :alt: Before and After FOCUS was applied to the features from above example.
+|
+
+Limitations
+-----------
+
+- Currently, FOCUS can only be applied to scikit-learn `DecisionTreeClassifier`, `RandomForestClassifier` and `AdaBoostClassifier`.
+- While categorical features may be included in the feature set, it is important to note that the interpretation of changes in categorical features, such as transitioning from age 40 to 20, may not provide meaningful insights.
+- The input features should be scaled to the range of 0 and 1 before applying FOCUS. Therefore, it is necessary to transform the features prior to using FOCUS. However, this scaling process may introduce some additional complexity when interpreting the features after applying FOCUS.
+
+Documentation
+-------------
+The documentation can be found `here <https://focus-cfe.readthedocs.io/en/latest/>`_.
+
+Contributing
+------------
+If you would like to contribute to the project, please refer to;
+    - `ISSUE_TEMPLATE <https://github.com/kyosek/focus/tree/master/.github/ISSUE_TEMPLATE>`_ for raising an issue
+    - `PULL_REQUEST_TEMPLATE.md <https://github.com/kyosek/focus/blob/master/.github/PULL_REQUEST_TEMPLATE.md>`_ for raising a PR
+
+License
+-------
+This package is using the `Apache License 2.0 <https://github.com/kyosek/focus/blob/master/LICENSE>`_ license.
