@@ -5,7 +5,7 @@ API Reference
 focus.core module
 -----------------
 
-.. automodule:: focus.core
+.. automodule:: Focus
     :importend-members:
     :members:
     :undoc-members: tests
