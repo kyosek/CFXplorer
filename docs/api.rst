@@ -6,7 +6,6 @@ focus
 ----------
 
 .. automodule:: focus.core.Focus
-    :imported-members:
     :members:
     :undoc-members:
     :show-inheritance:
@@ -15,7 +14,6 @@ focus
 utils
 -----
 .. automodule:: focus.utils
-    :imported-members:
     :members:
     :undoc-members:
     :show-inheritance:
