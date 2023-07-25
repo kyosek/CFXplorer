@@ -4,7 +4,7 @@ from sklearn.datasets import make_classification
 from sklearn.ensemble import AdaBoostClassifier, RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
 
-from focus import Focus
+from cfepy import Focus
 
 x_train, y_train = make_classification(
     n_samples=200, n_features=10, n_classes=2, random_state=42

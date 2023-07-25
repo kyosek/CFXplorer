@@ -16,7 +16,7 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 
 class Focus:
-    r"""
+    """
     FOCUS Lucic, et al. 2022 computes
     Counterfactual Explanations (CFE) using the gradient descent
     method for predictions of the tree-based models.
@@ -70,9 +70,9 @@ class Focus:
     - Initialize FOCUS with default parameters
     - Generate counterfactual explanations
 
-    focus-cfe = Focus()
+    cfepy = Focus()
 
-    cfe_features = focus-cfe.generate(model, X)
+    cfe_features = cfepy.generate(model, X)
     """
 
     def __init__(
@@ -100,7 +100,7 @@ class Focus:
         self.verbose = verbose
 
     def generate(self, model, X, x_train=None):
-        r"""
+        """
         Generate counterfactual explanations for the
         predictions from a tree-based model.
 
@@ -214,7 +214,7 @@ class Focus:
 
     @staticmethod
     def prepare_features_by_perturb_direction(model, X: np.ndarray, direction: str):
-        r"""
+        """
         Prepares the input data `X` based on the perturbation direction.
 
         Args:
@@ -267,7 +267,7 @@ class Focus:
         temperature,
         optimizer,
     ):
-        r"""
+        """
         Computes the gradient of the loss function with respect to the variables to optimize.
 
         Returns:
@@ -302,7 +302,7 @@ class Focus:
 
     @staticmethod
     def parse_class_tree(tree, X, sigma: float) -> list:
-        r"""
+        """
         Compute impurity of each leaf node in a decision tree and approximate it using sigmoid function.
 
         Args:
@@ -341,7 +341,6 @@ class Focus:
         for i in range(n_nodes):
             cur_node = nodes[i]
             if children_left[i] != children_right[i]:
-
                 if cur_node is None:
                     cur_node = 1.0
 
@@ -362,7 +361,7 @@ class Focus:
 
     @staticmethod
     def get_prob_classification_tree(tree, X, sigma: float) -> tf.Tensor:
-        r"""
+        """
         get_prob_classification_tree - computes the probability of each sample's classification in a decision tree
 
         Args:
@@ -420,7 +419,7 @@ class Focus:
     def get_prob_classification_forest(
         model, X: tf.Tensor, sigma: float, temperature: float
     ) -> tf.Tensor:
-        r"""
+        """
         Calculate the softmax probabilities for classification for a random forest or AdaBoost model.
 
         Args:
@@ -472,7 +471,7 @@ class Focus:
         temperature,
         model,
     ) -> tf.Tensor:
-        r"""
+        """
         Calculates the filtered probabilities of each data point for the given model.
 
         Args:

@@ -10,7 +10,7 @@ DESCRIPTION = (
 
 
 # get __version__ from _version.py
-ver_file = path.join("focus", "version.py")
+ver_file = path.join("cfepy", "version.py")
 with open(ver_file) as f:
     exec(f.read())
 
@@ -28,7 +28,7 @@ with open(path.join(this_directory, "requirements.txt"), encoding="utf-8") as f:
     requirements = f.read().splitlines()
 
 setup(
-    name="focus-cfe",
+    name="cfepy",
     version=__version__,
     author="Kyosuke Morita",
     author_email="kq441morita@gmail.com",

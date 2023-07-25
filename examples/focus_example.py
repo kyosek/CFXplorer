@@ -8,7 +8,7 @@ from utils import (
     train_decision_tree_model,
 )
 
-from focus import Focus
+from cfepy import Focus
 
 
 def run_example():

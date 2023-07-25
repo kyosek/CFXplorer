@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 import tensorflow as tf
 
-from focus.utils import (
+from cfepy import (
     calculate_distance,
     safe_cosine,
     safe_euclidean,
@@ -13,7 +13,7 @@ from focus.utils import (
     tf_cov,
 )
 
-epsilon = 10.0 ** -10
+epsilon = 10.0**-10
 random.seed(42)
 
 covariance_test_data = [
@@ -88,7 +88,7 @@ def test_tf_cov(feat_input_cov, expected_output_cov):
 
 @pytest.mark.parametrize("feat_input, feat_input2", distance_test_data)
 def test_safe_euclidean(feat_input, feat_input2):
-    expected = (np.sum(feat_input2 ** 2, axis=-1) + epsilon) ** 0.5
+    expected = (np.sum(feat_input2**2, axis=-1) + epsilon) ** 0.5
     assert safe_euclidean(feat_input).numpy() == pytest.approx(expected)
 
 

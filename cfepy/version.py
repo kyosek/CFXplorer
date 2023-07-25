@@ -1,5 +1,5 @@
 """
-``focus-cfe`` is a python package for
+``cfepy`` is a python package for
 generating counterfactual explanations for a tree-based model
 """
 # PEP0440 compatible formatted version, see:
@@ -18,4 +18,4 @@ generating counterfactual explanations for a tree-based model
 # Dev branch marker is: 'X.Y.dev' or 'X.Y.devN' where N is an integer.
 # 'X.Y.dev0' is the canonical version of 'X.Y.dev'
 #
-__version__ = "0.0.dev3"  # pragma: no cover
+__version__ = "0.0.dev4"  # pragma: no cover
