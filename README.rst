@@ -1,5 +1,5 @@
 CFXplorer
-==========================================================================
+=========
 
 **Deployment & Documentation & Stats & License**
 
@@ -81,7 +81,7 @@ Examples
 --------
 
 - Comprehensive examples can be found in the `examples folder <https://github.com/kyosek/CFXplorer/blob/master/examples/focus_example.py>`_.
-- Kaggle notebook example can be found `here <https://www.kaggle.com/code/kyosukemorita/CFXplorer-example>`_.
+- Kaggle notebook example can be found `here <https://www.kaggle.com/code/kyosukemorita/focus-example>`__.
 - Below is demonstrated a comparison of before and after Focus is applied to feature set from the example given above.
 
 .. image:: https://raw.githubusercontent.com/kyosek/focus/master/docs/plot.png
@@ -100,7 +100,7 @@ Limitations of Focus class
 Documentation
 -------------
 
-The documentation can be found `here <https://cfxplorer.readthedocs.io/en/latest/>`_.
+The documentation can be found `here <https://cfxplorer.readthedocs.io/en/latest/>`__.
 
 Contributing
 ------------
