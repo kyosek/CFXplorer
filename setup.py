@@ -3,9 +3,7 @@ from os import path
 
 from setuptools import find_packages, setup
 
-DESCRIPTION = (
-    "CFXplorer is a python package for " "generating counterfactual explanations"
-)
+DESCRIPTION = "CFXplorer is a python package for generating counterfactual explanations"
 
 
 # get __version__ from _version.py
