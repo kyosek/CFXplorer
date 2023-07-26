@@ -70,9 +70,9 @@ class Focus:
     - Initialize FOCUS with default parameters
     - Generate counterfactual explanations
 
-    cfepy = Focus()
+    cfxplorer = Focus()
 
-    cfe_features = cfepy.generate(model, X)
+    cfe_features = cfxplorer.generate(model, X)
     """
 
     def __init__(

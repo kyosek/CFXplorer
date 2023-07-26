@@ -1,5 +1,5 @@
 """
-``cfepy`` is a python package for
+``cfxplorer`` is a python package for
 generating counterfactual explanations for a tree-based model
 """
 # PEP0440 compatible formatted version, see:

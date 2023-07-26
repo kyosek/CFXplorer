@@ -1,4 +1,4 @@
-from cfepy.focus.core import Focus
+from cfxplorer.focus.core import Focus
 
 # Let users know if they're missing any of our hard dependencies
 _hard_dependencies = ("tensorflow", "numpy")

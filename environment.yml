@@ -1,4 +1,4 @@
-name: cfepy
+name: cfxplorer
 dependencies:
   - tensorflow
   - numpy

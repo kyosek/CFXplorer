@@ -1,4 +1,4 @@
-Focus-cfe
+CFXplorer
 ==========================================================================
 
 **Deployment & Documentation & Stats & License**
@@ -36,7 +36,7 @@ Focus-cfe
 
 ---------
 
-Focus-cfe generates optimal distance counterfactual explanations of the original data for the instances in tree‐based machine learning models.
+CFXplorer generates optimal distance counterfactual explanations of the original data for the instances in tree‐based machine learning models.
 
 This package is an implementation of `FOCUS: Flexible Optimizable Counterfactual Explanations for Tree Ensembles (Lucic, et at. 2022) <https://arxiv.org/abs/1911.12199>`_.
 
@@ -48,8 +48,8 @@ It is recommended to use **pip** or **conda** for installation. Please make sure
 
 .. code-block:: bash
 
-   pip install focus-cfe            # normal install
-   pip install --upgrade focus-cfe  # or update if needed
+   pip install CFXplorer            # normal install
+   pip install --upgrade CFXplorer  # or update if needed
 
 .. code-block:: bash
 
@@ -69,7 +69,7 @@ Usage
 
 .. code-block:: python
 
-    from focus import Focus
+    from cfxplorer import Focus
     # Initialize Focus instance with default values
     focus = Focus()
 
@@ -90,17 +90,17 @@ Examples
     :scale: 100 %
     :alt: Before and After FOCUS was applied to the features from above example.
 
-Limitations
------------
+Limitations of Focus class
+--------------------------
 
-- Currently, Focus-cfe can only be applied to scikit-learn ``DecisionTreeClassifier``, ``RandomForestClassifier`` and ``AdaBoostClassifier``.
+- Currently, Focus class can only be applied to scikit-learn ``DecisionTreeClassifier``, ``RandomForestClassifier`` and ``AdaBoostClassifier``.
 - While categorical features may be included in the feature set, it is important to note that the interpretation of changes in categorical features, such as transitioning from age 40 to 20, may not provide meaningful insights.
-- The input features should be scaled to the range of 0 and 1 before applying Focus-cfe. Therefore, it is necessary to transform the features prior to using Focus-cfe. However, this scaling process may introduce some additional complexity when interpreting the features after applying Focus-cfe.
+- The input features should be scaled to the range of 0 and 1 before applying Focus-cfe. Therefore, it is necessary to transform the features prior to using Focus. However, this scaling process may introduce some additional complexity when interpreting the features after applying Focus.
 
 Documentation
 -------------
 
-The documentation can be found `here <https://focus-cfe.readthedocs.io/en/latest/>`_.
+The documentation can be found `here <https://cfxplorer.readthedocs.io/en/latest/>`_.
 
 Contributing
 ------------

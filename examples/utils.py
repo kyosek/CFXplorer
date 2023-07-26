@@ -84,14 +84,14 @@ def prepare_plot_df(model, X, X_focus):
     Args:
         model (object): A trained machine learning model capable of making predictions.
         X (array-like): The input data for which predictions are made.
-        X_focus (array-like): Additional input data used for cfepy predictions.
+        X_focus (array-like): Additional input data used for cfxplorer predictions.
 
     Returns:
         tuple: A tuple containing two pandas DataFrames.
             - The first DataFrame contains the PCA-transformed features of `X`
                 and the corresponding predictions.
             - The second DataFrame contains the PCA-transformed features of `X_focus`
-                and the corresponding cfepy predictions.
+                and the corresponding cfxplorer predictions.
     """
     pca = PCA(n_components=2)
 

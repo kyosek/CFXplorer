@@ -6,7 +6,7 @@ from utils import (
     train_decision_tree_model,
 )
 
-from cfepy import Focus
+from cfxplorer import Focus
 
 
 def objective(trial):
