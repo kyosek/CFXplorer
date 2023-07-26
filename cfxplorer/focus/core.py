@@ -70,9 +70,9 @@ class Focus:
     - Initialize FOCUS with default parameters
     - Generate counterfactual explanations
 
-    focus-cfe = Focus()
+    cfxplorer = Focus()
 
-    cfe_features = focus-cfe.generate(model, X)
+    cfe_features = cfxplorer.generate(model, X)
     """
 
     def __init__(
@@ -341,7 +341,6 @@ class Focus:
         for i in range(n_nodes):
             cur_node = nodes[i]
             if children_left[i] != children_right[i]:
-
                 if cur_node is None:
                     cur_node = 1.0
 

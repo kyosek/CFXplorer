@@ -4,13 +4,12 @@ from os import path
 from setuptools import find_packages, setup
 
 DESCRIPTION = (
-    "FOCUS is a python package for "
-    "generating counterfactual explanations for a tree-based model"
+    "CFXplorer is a python package for " "generating counterfactual explanations"
 )
 
 
 # get __version__ from _version.py
-ver_file = path.join("focus", "version.py")
+ver_file = path.join("cfxplorer", "version.py")
 with open(ver_file) as f:
     exec(f.read())
 
@@ -28,7 +27,7 @@ with open(path.join(this_directory, "requirements.txt"), encoding="utf-8") as f:
     requirements = f.read().splitlines()
 
 setup(
-    name="focus-cfe",
+    name="CFXplorer",
     version=__version__,
     author="Kyosuke Morita",
     author_email="kq441morita@gmail.com",

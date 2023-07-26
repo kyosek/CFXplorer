@@ -1,4 +1,4 @@
-name: focus-cfe
+name: cfxplorer
 dependencies:
   - tensorflow
   - numpy

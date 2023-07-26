@@ -6,7 +6,7 @@ from utils import (
     train_decision_tree_model,
 )
 
-from focus import Focus
+from cfxplorer import Focus
 
 
 def objective(trial):
@@ -60,7 +60,6 @@ def objective(trial):
 
 
 if __name__ == "__main__":
-
     study = optuna.create_study(direction="minimize")
     study.optimize(objective, n_trials=100)
 

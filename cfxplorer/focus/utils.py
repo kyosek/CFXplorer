@@ -2,7 +2,7 @@ import numpy as np
 import tensorflow as tf
 
 
-def safe_euclidean(matrix_diff, epsilon=10.0 ** -10) -> tf.Tensor:
+def safe_euclidean(matrix_diff, epsilon=10.0**-10) -> tf.Tensor:
     """
     Calculates the Euclidean distance between two matrices with a small epsilon added to prevent singularities.
 
@@ -13,10 +13,10 @@ def safe_euclidean(matrix_diff, epsilon=10.0 ** -10) -> tf.Tensor:
     Returns:
     tf.Tensor: A tensor representing the Euclidean distance between the two matrices
     """
-    return (tf.reduce_sum(matrix_diff ** 2, axis=-1) + epsilon) ** 0.5
+    return (tf.reduce_sum(matrix_diff**2, axis=-1) + epsilon) ** 0.5
 
 
-def safe_cosine(feat_input, perturbed, epsilon=10.0 ** -10) -> tf.Tensor:
+def safe_cosine(feat_input, perturbed, epsilon=10.0**-10) -> tf.Tensor:
     """
     Calculates cosine distance between two input arrays `feat_input` and `perturbed`
     while ensuring numerical stability with `epsilon`.
@@ -42,7 +42,7 @@ def safe_cosine(feat_input, perturbed, epsilon=10.0 ** -10) -> tf.Tensor:
     return dist
 
 
-def safe_l1(matrix_diff, epsilon=10.0 ** -10) -> tf.Tensor:
+def safe_l1(matrix_diff, epsilon=10.0**-10) -> tf.Tensor:
     """
     Calculates the L1 (Manhattan) distance between two tensors with a small epsilon value
     added to prevent division by zero.
@@ -76,7 +76,7 @@ def tf_cov(x_train) -> tf.Tensor:
     return cov_xx
 
 
-def safe_mahal(matrix_diff, x_train, epsilon=10.0 ** -10) -> tf.Tensor:
+def safe_mahal(matrix_diff, x_train, epsilon=10.0**-10) -> tf.Tensor:
     """
     Calculates Mahalanobis distance using TensorFlow
 
