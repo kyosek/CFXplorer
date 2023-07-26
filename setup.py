@@ -26,7 +26,7 @@ with open(path.join(this_directory, "requirements.txt"), encoding="utf-8") as f:
 
 setup(
     name="CFXplorer",
-    version=__version__,
+    version="0.0.dev4",
     author="Kyosuke Morita",
     author_email="kq441morita@gmail.com",
     description=DESCRIPTION,
