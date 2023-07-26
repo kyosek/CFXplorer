@@ -67,12 +67,12 @@ class Focus:
 
     Examples
     --------
-    - Initialize FOCUS with default parameters
+    - Initialize FOCUS on default parameters
     - Generate counterfactual explanations
 
-    cfxplorer = Focus()
+    focus = Focus()
 
-    cfe_features = cfxplorer.generate(model, X)
+    cfe_features = focus.generate(model, X)
     """
 
     def __init__(
@@ -475,16 +475,16 @@ class Focus:
         Calculates the filtered probabilities of each data point for the given model.
 
         Args:
-        - n_class (int): Number of classes.
-        - mask_vector (np.ndarray): A boolean mask indicating which data points should be considered.
-        - X (tf.Tensor): The feature input for the model.
-        - sigma (float): The value of sigma for computing the probabilities.
-        - temperature (float): The temperature to be used for the softmax function.
-        - model: The machine learning model;
+        n_class (int): Number of classes.
+        mask_vector (np.ndarray): A boolean mask indicating which data points should be considered.
+        X (tf.Tensor): The feature input for the model.
+        sigma (float): The value of sigma for computing the probabilities.
+        temperature (float): The temperature to be used for the softmax function.
+        model: The machine learning model;
             e.g., DecisionTreeClassifier, RandomForestClassifier, AdaBoostClassifier.
 
         Returns:
-        - hinge_loss (tf.Tensor): The filtered probabilities of each data point.
+        hinge_loss (tf.Tensor): The filtered probabilities of each data point.
         """
         n_input = X.shape[0]
 
