@@ -1,5 +1,5 @@
 CFXplorer
-==========================================================================
+=========
 
 **Deployment & Documentation & Stats & License**
 
@@ -15,11 +15,11 @@ CFXplorer
    :target: https://pepy.tech/project/focus-cfe
    :alt: Downloads
 
-.. image:: https://codecov.io/gh/kyosek/focus/branch/master/graph/badge.svg?token=G5I7TJR0JQ
-    :target: https://codecov.io/gh/kyosek/focus
+.. image:: https://codecov.io/gh/kyosek/CFXplorer/branch/master/graph/badge.svg?token=G5I7TJR0JQ
+    :target: https://codecov.io/gh/kyosek/CFXplorer
 
-.. image:: https://dl.circleci.com/status-badge/img/gh/kyosek/focus/tree/master.svg?style=svg
-    :target: https://dl.circleci.com/status-badge/redirect/gh/kyosek/focus/tree/master
+.. image:: https://dl.circleci.com/status-badge/img/gh/kyosek/CFXplorer/tree/master.svg?style=svg
+    :target: https://dl.circleci.com/status-badge/redirect/gh/kyosek/CFXplorer/tree/master
     :alt: Circle CI
 
 .. image:: https://api.codeclimate.com/v1/badges/93840d29606abb212051/maintainability
@@ -27,11 +27,11 @@ CFXplorer
    :alt: Maintainability
 
 .. image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit
-   :target: https://github.com/kyosek/focus-cfe
+   :target: https://github.com/kyosek/CFXplorer
    :alt: pre-commit
 
-.. image:: https://img.shields.io/github/license/kyosek/focus.svg
-   :target: https://github.com/kyosek/focus/blob/master/LICENSE
+.. image:: https://img.shields.io/github/license/kyosek/CFXplorer.svg
+   :target: https://github.com/kyosek/CFXplorer/blob/master/LICENSE
    :alt: License
 
 ---------
@@ -53,7 +53,7 @@ It is recommended to use **pip** or **conda** for installation. Please make sure
 
 .. code-block:: bash
 
-   conda install -c conda-forge focus-cfe
+   conda install -c conda-forge CFXplorer
 
 Requirements
 ------------
@@ -80,9 +80,9 @@ Usage
 Examples
 --------
 
-- Comprehensive examples can be found in the `examples folder <https://github.com/kyosek/focus/blob/master/examples/focus_example.py>`_.
-- Kaggle notebook example can be found `here <https://www.kaggle.com/code/kyosukemorita/focus-cfe-example>`_.
-- Below is demonstrated a comparison of before and after Focus-cfe is applied to feature set from the example given above.
+- Comprehensive examples can be found in the `examples folder <https://github.com/kyosek/CFXplorer/blob/master/examples/focus_example.py>`_.
+- Kaggle notebook example can be found `here <https://www.kaggle.com/code/kyosukemorita/focus-example>`__.
+- Below is demonstrated a comparison of before and after Focus is applied to feature set from the example given above.
 
 .. image:: https://raw.githubusercontent.com/kyosek/focus/master/docs/plot.png
     :width: 800px
@@ -100,16 +100,16 @@ Limitations of Focus class
 Documentation
 -------------
 
-The documentation can be found `here <https://cfxplorer.readthedocs.io/en/latest/>`_.
+The documentation can be found `here <https://cfxplorer.readthedocs.io/en/latest/>`__.
 
 Contributing
 ------------
 
 If you would like to contribute to the project, please refer to;
 
-- `ISSUE_TEMPLATE <https://github.com/kyosek/focus/tree/master/.github/ISSUE_TEMPLATE>`_ for raising an issue
-- `PULL_REQUEST_TEMPLATE.md <https://github.com/kyosek/focus/blob/master/.github/PULL_REQUEST_TEMPLATE.md>`_ for raising a PR
+- `ISSUE_TEMPLATE <https://github.com/kyosek/CFXplorer/tree/master/.github/ISSUE_TEMPLATE>`_ for raising an issue
+- `PULL_REQUEST_TEMPLATE.md <https://github.com/kyosek/CFXplorer/blob/master/.github/PULL_REQUEST_TEMPLATE.md>`_ for raising a PR
 
 License
 -------
-This package is using the `Apache License 2.0 <https://github.com/kyosek/focus/blob/master/LICENSE>`_ license.
+This package is using the `Apache License 2.0 <https://github.com/kyosek/CFXplorer/blob/master/LICENSE>`_ license.
