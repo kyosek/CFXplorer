@@ -10,7 +10,7 @@ import tensorflow as tf
 from sklearn.ensemble import AdaBoostClassifier, RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
 
-from .utils import calculate_distance
+from cfxplorer.utils import calculate_distance
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 

@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 import tensorflow as tf
 
-from cfxplorer.focus.utils import (
+from cfxplorer.utils import (
     calculate_distance,
     safe_cosine,
     safe_euclidean,

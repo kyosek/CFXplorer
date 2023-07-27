@@ -19,10 +19,6 @@ def readme():
         return f.read()
 
 
-# read the contents of requirements.txt
-with open(path.join(this_directory, "requirements.txt"), encoding="utf-8") as f:
-    requirements = f.read().splitlines()
-
 setup(
     name="CFXplorer",
     version=__version__,
