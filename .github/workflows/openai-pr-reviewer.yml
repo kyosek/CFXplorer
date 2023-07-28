@@ -28,3 +28,4 @@ jobs:
           debug: true
           review_simple_changes: true
           review_comment_lgtm: false
+          openai_light_model: gpt-3.5-turbo
