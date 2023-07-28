@@ -3,27 +3,28 @@ CFXplorer
 
 **Deployment & Documentation & Stats & License**
 
-.. image:: https://img.shields.io/pypi/v/focus-cfe.svg?color=brightgreen
-   :target: https://pypi.org/project/focus-cfe/
+.. image:: https://img.shields.io/pypi/v/CFXplorer.svg?color=brightgreen
+   :target: https://pypi.org/project/CFXplorer/
    :alt: PyPI version
 
-.. image:: https://readthedocs.org/projects/focus-cfe/badge/?version=latest
-   :target: https://focus-cfe.readthedocs.io/en/latest/?badge=latest
+.. image:: https://readthedocs.org/projects/CFXplorer/badge/?version=latest
+   :target: https://CFXplorer.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation status
 
-.. image:: https://pepy.tech/badge/focus-cfe
-   :target: https://pepy.tech/project/focus-cfe
+.. image:: https://pepy.tech/badge/CFXplorer
+   :target: https://pepy.tech/project/CFXplorer
    :alt: Downloads
 
 .. image:: https://codecov.io/gh/kyosek/CFXplorer/branch/master/graph/badge.svg?token=G5I7TJR0JQ
     :target: https://codecov.io/gh/kyosek/CFXplorer
+    :alt: Code Coverage
 
 .. image:: https://dl.circleci.com/status-badge/img/gh/kyosek/CFXplorer/tree/master.svg?style=svg
     :target: https://dl.circleci.com/status-badge/redirect/gh/kyosek/CFXplorer/tree/master
     :alt: Circle CI
 
 .. image:: https://api.codeclimate.com/v1/badges/93840d29606abb212051/maintainability
-   :target: https://codeclimate.com/github/kyosek/focus-cfe/maintainability
+   :target: https://codeclimate.com/github/kyosek/CFXplorer/maintainability
    :alt: Maintainability
 
 .. image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit
@@ -76,12 +77,11 @@ Usage
     # Generate counterfactual explanations for given tree model and features
     pertubed = focus.generate(tree_model, X)
 
-
 Examples
 --------
 
-- Comprehensive examples can be found in the `examples folder <https://github.com/kyosek/CFXplorer/blob/master/examples/focus_example.py>`_.
-- Kaggle notebook example can be found `here <https://www.kaggle.com/code/kyosukemorita/focus-example>`__.
+- Comprehensive examples can be found in the `examples folder <https://github.com/kyosek/CFXplorer/blob/master/examples>`_.
+- Kaggle notebook example can be found `here <https://www.kaggle.com/code/kyosukemorita/cfxplorer-example>`__.
 - Below is demonstrated a comparison of before and after Focus is applied to feature set from the example given above.
 
 .. image:: https://raw.githubusercontent.com/kyosek/focus/master/docs/plot.png
@@ -95,7 +95,7 @@ Limitations of Focus class
 
 - Currently, Focus class can only be applied to scikit-learn ``DecisionTreeClassifier``, ``RandomForestClassifier`` and ``AdaBoostClassifier``.
 - While categorical features may be included in the feature set, it is important to note that the interpretation of changes in categorical features, such as transitioning from age 40 to 20, may not provide meaningful insights.
-- The input features should be scaled to the range of 0 and 1 before applying Focus-cfe. Therefore, it is necessary to transform the features prior to using Focus. However, this scaling process may introduce some additional complexity when interpreting the features after applying Focus.
+- The input features should be scaled to the range of 0 and 1 before applying Focus. Therefore, it is necessary to transform the features prior to using Focus. However, this scaling process may introduce some additional complexity when interpreting the features after applying Focus.
 
 Documentation
 -------------
