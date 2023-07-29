@@ -1,5 +1,5 @@
 ================================
-Welcome to cfepy's documentation
+Welcome to CFXplorer's documentation
 ================================
 
 Contents
@@ -13,7 +13,7 @@ Contents
    api
 
 **Links**: |
-`GitHub repository <https://github.com/kyosek/focus>`__ |
-`PyPI <https://pypi.org/project/focus-cfe/>`__ |
+`GitHub repository <https://github.com/kyosek/CFXplorer>`__ |
+`PyPI <https://pypi.org/project/CFXplorer/>`__ |
 
 .. include:: ../README.rst

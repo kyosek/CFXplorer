@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.abspath(".."))
 
 # -- Project information -----------------------------------------------------
 
-project = "cfxplorer"
+project = "CFXplorer"
 copyright = "2023, Kyosuke Morita"
 author = "Kyosuke Morita"
 
